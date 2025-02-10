@@ -12,10 +12,7 @@ const VoxelDog = () => {
   const refContainer = useRef()
   const [loading, setLoading] = useState(true)
   const refRenderer = useRef()
-  const urlProgrammerGLB =
-    (process.env.NODE_ENV === 'production'
-      ? 'https://craftzdog.global.ssl.fastly.net/homepage'
-      : '') + '/lost_programmer.glb'
+  const urlProgrammerGLB = '/lost_programmer.glb'
 
   const handleWindowResize = useCallback(() => {
     const { current: renderer } = refRenderer
