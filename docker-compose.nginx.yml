@@ -32,6 +32,10 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: nextjs-app
+    deploy:
+      resources:
+        limits:
+          memory: 4G
     restart: always
     environment:
       - VIRTUAL_HOST=craftzman.ru,www.craftzman.ru

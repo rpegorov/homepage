@@ -1,0 +1,31 @@
+version: '3'
+services:
+  nextjs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nextjs-app
+    restart: always
+    ports:
+      - "8080:8080"
+
+  nginx-config:
+    image: alpine
+    volumes:
+      - ./nginx/conf.d:/project-configs
+      - /etc/nginx/conf.d:/system-nginx
+      - ./.certs:/project-certs
+      - /etc/nginx/certs:/system-certs
+    command: >
+      sh -c "cp /project-configs/craftzman.ru.conf /system-nginx/ &&
+             chown root:root /system-nginx/craftzman.ru.conf &&
+             chmod 644 /system-nginx/craftzman.ru.conf &&
+             mkdir -p /system-certs &&
+             cp /project-certs/craftzman.ru.crt /system-certs/ &&
+             cp /project-certs/craftzman.ru.key /system-certs/ &&
+             chown root:root /system-certs/craftzman.ru.* &&
+             chmod 644 /system-certs/craftzman.ru.crt &&
+             chmod 600 /system-certs/craftzman.ru.key &&
+             nginx -s reload || true"
+    privileged: true
+    network_mode: host
