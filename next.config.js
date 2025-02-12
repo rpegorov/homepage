@@ -1,7 +1,7 @@
 module.exports = {
   reactStrictMode: true,
   swcMinify: true,
-  distDir: 'out',
+  output: '/out',
   images: {
     unoptimized: true
   }
