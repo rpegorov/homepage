@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - ./.certs:/etc/nginx/certs:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    labels:
+      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - web-root:/var/www/html
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+    depends_on:
+      - nginx-proxy
+    command: certonly --webroot --webroot-path=/var/www/html --email pregorov@icloud.com --agree-tos --no-eff-email --staging -d craftzman.ru -d www.craftzman.ru
+
+  nextjs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nextjs-app
+    restart: always
+    environment:
+      - VIRTUAL_HOST=craftzman.ru,www.craftzman.ru
+      - VIRTUAL_PORT=8080
+    expose:
+      - "8080"
+    depends_on:
+      - nginx-proxy
+
+networks:
+  default:
+    name: nginx
+
+volumes:
+  conf:
+  vhost:
+  html:
+  certs:
+  certbot-etc:
+  certbot-var:
+  web-root:
