@@ -29,8 +29,6 @@ services:
              chmod 644 /system-nginx/craftzman.ru.conf &&
              chown root:root /system-certs/craftzman.ru.* &&
              chmod 644 /system-certs/craftzman.ru.crt &&
-             chmod 600 /system-certs/craftzman.ru.key &&
-             echo 'Reloading nginx...' &&
-             nginx -s reload || true"
+             chmod 600 /system-certs/craftzman.ru.key 
     privileged: true
     network_mode: host
