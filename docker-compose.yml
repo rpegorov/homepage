@@ -16,19 +16,4 @@ services:
       - /etc/nginx/conf.d:/system-nginx
       - ./.certs:/project-certs
       - /etc/nginx/certs:/system-certs
-    command: >
-      sh -c "ls -la /project-configs &&
-             echo 'Copying nginx config...' &&
-             cp -v /project-configs/craftzman.ru.conf /system-nginx/ &&
-             echo 'Copying certificates...' &&
-             mkdir -p /system-certs &&
-             cp -v /project-certs/craftzman.ru.crt /system-certs/ &&
-             cp -v /project-certs/craftzman.ru.key /system-certs/ &&
-             echo 'Setting permissions...' &&
-             chown root:root /system-nginx/craftzman.ru.conf &&
-             chmod 644 /system-nginx/craftzman.ru.conf &&
-             chown root:root /system-certs/craftzman.ru.* &&
-             chmod 644 /system-certs/craftzman.ru.crt &&
-             chmod 600 /system-certs/craftzman.ru.key 
-    privileged: true
     network_mode: host
