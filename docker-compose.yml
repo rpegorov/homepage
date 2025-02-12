@@ -12,8 +12,7 @@ services:
   nginx-config:
     image: nginx:alpine
     volumes:
-      - ./nginx/conf.d:/project-configs
-      - /etc/nginx/conf.d:/system-nginx
-      - ./.certs:/project-certs
-      - /etc/nginx/certs:/system-certs
+      - ./nginx/conf.d/craftzman.ru.conf:/etc/nginx/conf.d/craftzman.ru.conf:ro
+      - ./.certs/craftzman.ru.crt:/etc/nginx/certs/craftzman.ru.crt:ro
+      - ./.certs/craftzman.ru.key:/etc/nginx/certs/craftzman.ru.key:ro
     network_mode: host
