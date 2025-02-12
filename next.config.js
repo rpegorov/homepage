@@ -1,11 +1,8 @@
-{
-  import('next').NextConfig
-}
-const nextConfig = {
-  output: 'export',
+module.exports = {
+  reactStrictMode: true,
+  swcMinify: true,
+  distDir: 'out',
   images: {
     unoptimized: true
   }
 }
-
-module.exports = nextConfig
