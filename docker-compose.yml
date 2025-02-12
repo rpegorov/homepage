@@ -10,7 +10,7 @@ services:
       - "3001:3000"
 
   nginx-config:
-    image: alpine
+    image: nginx:alpine
     volumes:
       - ./nginx/conf.d:/project-configs
       - /etc/nginx/conf.d:/system-nginx
