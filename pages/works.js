@@ -73,4 +73,4 @@ const Works = () => (
 )
 
 export default Works
-export { getServerSideProps } from '../components/chakra'
+export { getServerSgetStaticPropsideProps } from '../components/chakra'
