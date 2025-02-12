@@ -53,7 +53,7 @@ const Home = () => (
             overflow="hidden"
           >
             <Image
-              src="/images/rostislav.jpg"
+              src="/images/rostislav.png"
               alt="Profile image"
               width="100"
               height="100"
