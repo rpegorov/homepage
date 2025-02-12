@@ -17,6 +17,7 @@ COPY . .
 
 # Увеличение памяти для Node.js при сборке
 ENV NODE_OPTIONS="--max-old-space-size=4096"
+ENV PORT=8080
 
 # Сборка приложения
 RUN npm run build
