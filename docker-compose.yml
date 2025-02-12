@@ -9,7 +9,7 @@ services:
     expose:
       - '3001'
     ports:
-      - '127.0.0.1:3001:3001'
+      - '127.0.0.1:3001:3000'
 
   nginx-config:
     image: nginx:alpine
