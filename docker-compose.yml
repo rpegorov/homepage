@@ -17,15 +17,20 @@ services:
       - ./.certs:/project-certs
       - /etc/nginx/certs:/system-certs
     command: >
-      sh -c "cp /project-configs/craftzman.ru.conf /system-nginx/ &&
+      sh -c "ls -la /project-configs &&
+             echo 'Copying nginx config...' &&
+             cp -v /project-configs/craftzman.ru.conf /system-nginx/ &&
+             echo 'Copying certificates...' &&
+             mkdir -p /system-certs &&
+             cp -v /project-certs/craftzman.ru.crt /system-certs/ &&
+             cp -v /project-certs/craftzman.ru.key /system-certs/ &&
+             echo 'Setting permissions...' &&
              chown root:root /system-nginx/craftzman.ru.conf &&
              chmod 644 /system-nginx/craftzman.ru.conf &&
-             mkdir -p /system-certs &&
-             cp /project-certs/craftzman.ru.crt /system-certs/ &&
-             cp /project-certs/craftzman.ru.key /system-certs/ &&
              chown root:root /system-certs/craftzman.ru.* &&
              chmod 644 /system-certs/craftzman.ru.crt &&
              chmod 600 /system-certs/craftzman.ru.key &&
+             echo 'Reloading nginx...' &&
              nginx -s reload || true"
     privileged: true
     network_mode: host
