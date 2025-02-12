@@ -7,7 +7,7 @@ services:
     container_name: nextjs-app
     restart: always
     ports:
-      - "3000:3000"
+      - "3001:3000"
 
   nginx-config:
     image: alpine
