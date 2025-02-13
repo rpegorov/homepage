@@ -12,7 +12,7 @@ import P from '../../components/paragraph'
 import Layout from '../../components/layouts/article'
 
 const Work = () => (
-  <Layout title="AtomMinde">
+  <Layout title="AtomMind">
     <Container>
       <Title>
         AtomMinde <Badge>2024-</Badge>
@@ -48,4 +48,4 @@ const Work = () => (
 )
 
 export default Work
-export { getServerSideProps } from '../../components/chakra'
+export { getStaticProps } from '../../components/chakra'
