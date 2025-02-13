@@ -20,11 +20,11 @@ const Works = () => (
       <SimpleGrid columns={[1, 1, 2]} gap={6}>
         <Section>
           <WorkGridItem
-            id="AtomMind"
+            id="atomMind"
             title="AtomMind"
             thumbnail={thumbAtomMind}
           >
-            The Atommind industrial digitalization platform offers optimal
+            The AtomMind industrial digitalization platform offers optimal
             parameters and operating modes of equipment to reduce the proportion
             of finished products that do not meet established standards, as well
             as visualizes the production process and notifies users of parameter

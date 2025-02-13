@@ -18,7 +18,7 @@ const Work = () => (
         AtomMind <Badge>2024-</Badge>
       </Title>
       <P>
-        The Atommind industrial digitalization platform offers optimal
+        The AtomMind industrial digitalization platform offers optimal
         parameters and operating modes of equipment to reduce the proportion of
         finished products that do not meet established standards, as well as
         visualizes the production process and notifies users of parameter
