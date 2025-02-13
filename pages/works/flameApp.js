@@ -18,7 +18,7 @@ const Work = () => (
   <Layout title="FlameApp">
     <Container>
       <Title>
-        A mobile dating app. <Badge>2023</Badge>
+        A mobile dating app. <Badge>2023-2024</Badge>
       </Title>
       <P>Role in the project: Team Leader, Backend developer.</P>
       <P>About the project: a mobile dating app, similar to Tinder.</P>
@@ -42,6 +42,10 @@ const Work = () => (
           <span>
             Express.js, Nest.js, Vue, Vite, PrismaORM, Kafka, Rabbit MQ
           </span>
+        </ListItem>
+        <ListItem>
+          <Meta>Platform</Meta>
+          <span>iOS/ Android / Web</span>
         </ListItem>
       </List>
 
