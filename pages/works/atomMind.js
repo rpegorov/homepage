@@ -15,7 +15,7 @@ const Work = () => (
   <Layout title="AtomMind">
     <Container>
       <Title>
-        AtomMinde <Badge>2024-</Badge>
+        AtomMind <Badge>2024-</Badge>
       </Title>
       <P>
         The Atommind industrial digitalization platform offers optimal
@@ -41,8 +41,8 @@ const Work = () => (
         </ListItem>
       </List>
 
-      <WorkImage src="/images/works/atom_minde1.png" alt="AtomMinde" />
-      <WorkImage src="/images/works/atom_minde2.png" alt="AtomMinde" />
+      <WorkImage src="/images/works/atom_minde1.png" alt="AtomMind" />
+      <WorkImage src="/images/works/atom_minde2.png" alt="AtomMind" />
     </Container>
   </Layout>
 )
