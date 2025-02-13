@@ -78,4 +78,4 @@ const Posts = () => (
 )
 
 export default Posts
-export { getStaticProps } from '../components/chakra'
+export { getServerSideProps } from '../components/chakra'
