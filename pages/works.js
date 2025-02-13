@@ -3,7 +3,7 @@ import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import { WorkGridItem } from '../components/grid-item'
 
-import thumbAtomMinde from '../public/images/works/atom_minde.png'
+import thumbAtomMind from '../public/images/works/atom_minde.png'
 import thumbFlame from '../public/images/works/flame_title.png'
 import thumbTezish from '../public/images/works/tezish_title.png'
 import thumbHrCrm from '../public/images/works/crm_title.png'
@@ -20,9 +20,9 @@ const Works = () => (
       <SimpleGrid columns={[1, 1, 2]} gap={6}>
         <Section>
           <WorkGridItem
-            id="atomMinde"
-            title="AtomMinde"
-            thumbnail={thumbAtomMinde}
+            id="AtomMind"
+            title="AtomMind"
+            thumbnail={thumbAtomMind}
           >
             The Atommind industrial digitalization platform offers optimal
             parameters and operating modes of equipment to reduce the proportion
