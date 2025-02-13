@@ -97,4 +97,4 @@ const Wallpaper = () => (
 )
 
 export default Wallpaper
-export { getStaticProps } from '../../components/chakra'
+export { getServerSideProps } from '../../components/chakra'
