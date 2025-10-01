@@ -25,7 +25,7 @@ services:
       - certbot-var:/var/lib/letsencrypt
     depends_on:
       - nginx-proxy
-    command: certonly --webroot --webroot-path=/var/www/html --email pregorov@icloud.com --agree-tos --no-eff-email --staging -d craftzman.ru -d www.craftzman.ru
+    command: certonly --webroot --webroot-path=/var/www/html --email rpegorov@icloud.com --agree-tos --no-eff-email --staging -d craftzman.ru -d www.craftzman.ru
 
   nextjs:
     build:
