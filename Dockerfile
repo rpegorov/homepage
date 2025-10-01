@@ -25,4 +25,4 @@ RUN npm run build
 EXPOSE 3000
 
 # Запуск приложения
-CMD ["npm", "start"] 
+CMD ["serve", "-s", "out", "-l", "3000"]
