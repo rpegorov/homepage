@@ -69,9 +69,11 @@ const Works = () => (
             Website business card of the evaluation organization.
           </WorkGridItem>
         </Section>
+      </SimpleGrid>
 
-        <Divider my={6} />
+      <Divider my={6} />
 
+      <SimpleGrid columns={[1, 1, 2]} gap={6}>
         <Section delay={0.2}>
           <WorkGridItem id="drafta" thumbnail={thumbDrafta} title="Drafta">
             A Markdown note-taking app for developers. Focused writing
