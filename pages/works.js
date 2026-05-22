@@ -9,6 +9,8 @@ import thumbTezish from '../public/images/works/tezish_title.png'
 import thumbHrCrm from '../public/images/works/crm_title.png'
 import thumbFrontiers from '../public/images/works/frontiers_title.png'
 import thumbEtalon from '../public/images/works/etalon_title.png'
+import thumbDrafta from '../public/images/works/drafta_title.png'
+import thumbInfodiode from '../public/images/works/infodiode_title.png'
 
 const Works = () => (
   <Layout title="Works">
@@ -65,6 +67,27 @@ const Works = () => (
         <Section delay={0.1}>
           <WorkGridItem id="etalon" thumbnail={thumbEtalon} title="Etalon">
             Website business card of the evaluation organization.
+          </WorkGridItem>
+        </Section>
+
+        <Divider my={6} />
+
+        <Section delay={0.2}>
+          <WorkGridItem id="drafta" thumbnail={thumbDrafta} title="Drafta">
+            A Markdown note-taking app for developers. Focused writing
+            environment with a CodeMirror 6 editor, revision history, notebooks,
+            tags, and iCloud sync support.
+          </WorkGridItem>
+        </Section>
+        <Section delay={0.2}>
+          <WorkGridItem
+            id="infodiode"
+            thumbnail={thumbInfodiode}
+            title="Infodiode Test"
+          >
+            A load testing system for one-way data transfer through a hardware
+            data diode. Supports MQTT, TCP, Modbus TCP, OPC UA, and SFTP with
+            no feedback channel.
           </WorkGridItem>
         </Section>
       </SimpleGrid>
