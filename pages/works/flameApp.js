@@ -49,8 +49,8 @@ const Work = () => (
         </ListItem>
       </List>
 
-      <WorkImage src="/images/works/flame_phone.png" alt="FlameApp" />
-      <WorkImage src="/images/works/flame01.png" alt="FlameApp" />
+      <WorkImage src="/images/works/flame_phone.jpg" alt="FlameApp" />
+      <WorkImage src="/images/works/flame01.jpg" alt="FlameApp" />
     </Container>
   </Layout>
 )

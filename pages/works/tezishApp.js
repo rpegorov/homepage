@@ -59,7 +59,7 @@ const Work = () => (
         </ListItem>
       </List>
 
-      <WorkImage src="/images/works/tezish1.png" alt="TezishApp" />
+      <WorkImage src="/images/works/tezish1.jpg" alt="TezishApp" />
       <WorkImage src="/images/works/tezish2.png" alt="TezishApp" />
     </Container>
   </Layout>
