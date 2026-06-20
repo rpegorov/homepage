@@ -10,6 +10,7 @@ import {
   ListItem
 } from '@chakra-ui/react'
 import { ChevronRightIcon } from '@chakra-ui/icons'
+import dynamic from 'next/dynamic'
 import Paragraph from '../components/paragraph'
 import { BioSection, BioYear } from '../components/bio'
 import Layout from '../components/layouts/article'
@@ -25,10 +26,18 @@ import {
 import { FaTelegram } from 'react-icons/fa'
 import thumbYouTube from '../public/images/links/chanel-banner.jpeg'
 import Image from 'next/image'
+import VoxelLoader from '../components/voxel-loader'
+
+const LazyVoxelDog = dynamic(() => import('../components/voxel'), {
+  ssr: false,
+  loading: () => <VoxelLoader />
+})
 
 const Home = () => (
   <Layout>
     <Container>
+      <LazyVoxelDog />
+
       <Box display={{ md: 'flex' }}>
         <Box flexGrow={1}>
           <Heading as="h2" variant="page-title">
@@ -227,4 +236,3 @@ const Home = () => (
 )
 
 export default Home
-export { getServerSideProps } from '../components/chakra'

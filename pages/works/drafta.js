@@ -46,4 +46,3 @@ const Work = () => (
 )
 
 export default Work
-export { getStaticProps } from '../../components/chakra'

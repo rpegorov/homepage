@@ -50,4 +50,3 @@ const Wallpapers = () => (
 )
 
 export default Wallpapers
-export { getServerSideProps } from '../../components/chakra'

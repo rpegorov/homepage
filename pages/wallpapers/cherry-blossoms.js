@@ -104,4 +104,3 @@ const Wallpaper = () => (
 )
 
 export default Wallpaper
-export { getServerSideProps } from '../../components/chakra'
