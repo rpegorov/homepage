@@ -11,6 +11,7 @@ import thumbFrontiers from '../public/images/works/frontiers_title.jpg'
 import thumbEtalon from '../public/images/works/etalon_title.jpg'
 import thumbDrafta from '../public/images/works/drafta_title.png'
 import thumbInfodiode from '../public/images/works/infodiode_title.png'
+import thumbEcho from '../public/images/works/echo_title.png'
 
 const Works = () => (
   <Layout title="Works">
@@ -90,6 +91,13 @@ const Works = () => (
             A load testing system for one-way data transfer through a hardware
             data diode. Supports MQTT, TCP, Modbus TCP, OPC UA, and SFTP with
             no feedback channel.
+          </WorkGridItem>
+        </Section>
+        <Section delay={0.2}>
+          <WorkGridItem id="echo" thumbnail={thumbEcho} title="Echo">
+            A native macOS menu-bar system monitor with CPU, RAM, disk and
+            network gauges, drill-down charts, a tiling window manager,
+            clipboard history, and quick system utilities.
           </WorkGridItem>
         </Section>
       </SimpleGrid>
