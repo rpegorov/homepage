@@ -12,6 +12,7 @@ import thumbEtalon from '../public/images/works/etalon_title.jpg'
 import thumbDrafta from '../public/images/works/drafta_title.png'
 import thumbInfodiode from '../public/images/works/infodiode_title.png'
 import thumbEcho from '../public/images/works/echo_title.png'
+import thumbHelm from '../public/images/works/helm 00.png'
 
 const Works = () => (
   <Layout title="Works">
@@ -98,6 +99,13 @@ const Works = () => (
             A native macOS menu-bar system monitor with CPU, RAM, disk and
             network gauges, drill-down charts, a tiling window manager,
             clipboard history, and quick system utilities.
+          </WorkGridItem>
+        </Section>
+        <Section delay={0.2}>
+          <WorkGridItem id="helm" thumbnail={thumbHelm} title="Helm">
+            A task management and documentation application for macOS.
+            Features include task management, document creation, export capabilities,
+            and support for various file formats.
           </WorkGridItem>
         </Section>
       </SimpleGrid>
