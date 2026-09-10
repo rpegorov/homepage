@@ -17,7 +17,9 @@ import {
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
 import ThemeToggleButton from './theme-toggle-button'
+import LanguageToggleButton from './language-toggle-button'
 import { IoLogoGithub } from 'react-icons/io5'
+import { useLanguage } from '../lib/i18n'
 
 const LinkItem = ({ href, path, target, children, ...props }) => {
   const active = path === href
@@ -41,9 +43,13 @@ const LinkItem = ({ href, path, target, children, ...props }) => {
 const MenuLink = forwardRef((props, ref) => (
   <Link ref={ref} as={NextLink} {...props} />
 ))
+// forwardRef скрывает имя компонента от React DevTools и от eslint-plugin-react;
+// задаётся явно.
+MenuLink.displayName = 'MenuLink'
 
 const Navbar = props => {
   const { path } = props
+  const { t } = useLanguage()
 
   return (
     <Box
@@ -78,7 +84,7 @@ const Navbar = props => {
           mt={{ base: 4, md: 0 }}
         >
           <LinkItem href="/works" path={path}>
-            Works
+            {t('common.nav.works')}
           </LinkItem>
           {/* <LinkItem href="/wallpapers" path={path}>
             Wallpapers
@@ -97,12 +103,13 @@ const Navbar = props => {
             pl={2}
           >
             <IoLogoGithub />
-            Source
+            {t('common.nav.source')}
           </LinkItem>
         </Stack>
 
         <Box flex={1} align="right">
           <ThemeToggleButton />
+          <LanguageToggleButton />
 
           <Box ml={2} display={{ base: 'inline-block', md: 'none' }}>
             <Menu isLazy id="navbar-menu">
@@ -110,14 +117,14 @@ const Navbar = props => {
                 as={IconButton}
                 icon={<HamburgerIcon />}
                 variant="outline"
-                aria-label="Options"
+                aria-label={t('common.nav.optionsAria')}
               />
               <MenuList>
                 <MenuItem as={MenuLink} href="/">
-                  About
+                  {t('common.nav.about')}
                 </MenuItem>
                 <MenuItem as={MenuLink} href="/works">
-                  Works
+                  {t('common.nav.works')}
                 </MenuItem>
                 {/* <MenuItem as={MenuLink} href="/wallpapers">
                   Wallpapers
@@ -132,7 +139,7 @@ const Navbar = props => {
                   as={Link}
                   href="https://github.com/craftzdog/craftzdog-homepage"
                 >
-                  View Source
+                  {t('common.nav.viewSource')}
                 </MenuItem>
               </MenuList>
             </Menu>

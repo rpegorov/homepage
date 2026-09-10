@@ -26,6 +26,9 @@ export const ProgrammerContainer = forwardRef(({ children }, ref) => (
     {children}
   </Box>
 ))
+// forwardRef скрывает имя компонента от React DevTools и от eslint-plugin-react;
+// задаётся явно.
+ProgrammerContainer.displayName = 'ProgrammerContainer'
 
 const Loader = () => {
   return (

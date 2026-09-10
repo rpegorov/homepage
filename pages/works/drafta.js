@@ -3,46 +3,46 @@ import { ExternalLinkIcon } from '@chakra-ui/icons'
 import { Title, WorkImage, Meta } from '../../components/work'
 import P from '../../components/paragraph'
 import Layout from '../../components/layouts/article'
+import { useLanguage } from '../../lib/i18n'
 
-const Work = () => (
-  <Layout title="Drafta">
-    <Container>
-      <Title>
-        Drafta <Badge>2024–</Badge>
-      </Title>
-      <P>
-        Drafta is a Markdown note-taking application for developers, built for
-        macOS. It features a CodeMirror 6-powered editor embedded in a native
-        SwiftUI app, with syntax highlighting for Markdown and 50+ programming
-        languages, split editor/preview mode, revision history, notebooks with
-        hierarchy, a tag system with custom colors, and typography
-        customization. Designed as a focused writing environment — inspired by
-        Bear and Inkdrop — with iCloud Drive sync support.
-      </P>
-      <List ml={4} my={4}>
-        <ListItem>
-          <Meta>Platform</Meta>
-          <span>macOS</span>
-        </ListItem>
-        <ListItem>
-          <Meta>Stack</Meta>
-          <span>Swift, SwiftUI, CodeMirror 6, TypeScript, esbuild</span>
-        </ListItem>
-        <ListItem>
-          <Meta>Type</Meta>
-          <span>Indie / Personal</span>
-        </ListItem>
-        <ListItem>
-          <Meta>Website</Meta>
-          <Link href="https://drafta.org" isExternal>
-            drafta.org <ExternalLinkIcon mx="2px" />
-          </Link>
-        </ListItem>
-      </List>
+const Work = () => {
+  const { t } = useLanguage()
 
-      <WorkImage src="/images/works/drafta_title.png" alt="Drafta" />
-    </Container>
-  </Layout>
-)
+  return (
+    <Layout title="Drafta">
+      <Container>
+        <Title>
+          {t('workDetail.drafta.title')} <Badge>2024–</Badge>
+        </Title>
+        <P>{t('workDetail.drafta.p1')}</P>
+        <List ml={4} my={4}>
+          <ListItem>
+            <Meta>{t('common.meta.platform')}</Meta>
+            <span>{t('workDetail.drafta.platform')}</span>
+          </ListItem>
+          <ListItem>
+            <Meta>{t('common.meta.stack')}</Meta>
+            <span>{t('workDetail.drafta.stack')}</span>
+          </ListItem>
+          <ListItem>
+            <Meta>{t('common.meta.type')}</Meta>
+            <span>{t('common.meta.indiePersonal')}</span>
+          </ListItem>
+          <ListItem>
+            <Meta>{t('common.meta.website')}</Meta>
+            <Link href="https://drafta.org" isExternal>
+              {t('workDetail.drafta.websiteText')} <ExternalLinkIcon mx="2px" />
+            </Link>
+          </ListItem>
+        </List>
+
+        <WorkImage
+          src="/images/works/drafta_title.png"
+          alt={t('workDetail.drafta.alt')}
+        />
+      </Container>
+    </Layout>
+  )
+}
 
 export default Work

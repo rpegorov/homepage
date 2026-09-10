@@ -1,68 +1,52 @@
-import {
-  Box,
-  Container,
-  Badge,
-  Link,
-  List,
-  ListItem,
-  UnorderedList,
-  Heading,
-  Center
-} from '@chakra-ui/react'
+import { Container, Badge, Link, List, ListItem } from '@chakra-ui/react'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 import { Title, WorkImage, Meta } from '../../components/work'
 import P from '../../components/paragraph'
 import Layout from '../../components/layouts/article'
+import { useLanguage } from '../../lib/i18n'
 
-const Work = () => (
-  <Layout title="TezishApp">
-    <Container>
-      <Title>
-        A mobile application for quick job search. <Badge>2023-2023</Badge>
-      </Title>
-      <P>Role in the project: Team Leader, Backend developer.</P>
-      <P>
-        About the project: A mobile application for quick job search for
-        low-skilled employees. Search for employees.
-      </P>
-      <P>Team: 3 developers.</P>
-      <P>
-        Responsibilities: For the first part of the time, I served as Team Lead,
-        selected developers and designers. Conducted an interview. Organized the
-        work of the Agile team. Task decomposition, sprint planning, and control
-        over deadlines and task quality. Preparation of technical specifications
-        for third-party contractors, monitoring the execution of tasks. After
-        the appearance of the project manager, I started developing.
-        Implementation of new functionality in php: - implementation of
-        automatic deletion of the user account - implementation of the favorites
-        by vacancies section - implementation of the possibility of adding
-        vacancies from the mobile application - implementation of receiving and
-        viewing job reviews from the applicant Dividing the back part of the
-        application into separate services based on Nest.JS . Other
-        responsibilities: - GitLab deployment and configuration - job moderation
-        - maintaining technical support for users
-      </P>
-      <List ml={4} my={4}>
-        <ListItem>
-          <Meta>Stack</Meta>
-          <span>PHP 8.1, Doctrine, Express.JS, Nest.JS, TypOrm</span>
-        </ListItem>
-        <ListItem>
-          <Meta>Website</Meta>
-          <Link href="https://www.tezish.me">
-            https://www.tezish.me/ <ExternalLinkIcon mx="2px" />
-          </Link>
-        </ListItem>
-        <ListItem>
-          <Meta>Platform</Meta>
-          <span>iOS, Android</span>
-        </ListItem>
-      </List>
+const Work = () => {
+  const { t } = useLanguage()
 
-      <WorkImage src="/images/works/tezish1.jpg" alt="TezishApp" />
-      <WorkImage src="/images/works/tezish2.png" alt="TezishApp" />
-    </Container>
-  </Layout>
-)
+  return (
+    <Layout title="TezishApp">
+      <Container>
+        <Title>
+          {t('workDetail.tezishApp.title')} <Badge>2023-2023</Badge>
+        </Title>
+        <P>{t('workDetail.tezishApp.p1')}</P>
+        <P>{t('workDetail.tezishApp.p2')}</P>
+        <P>{t('workDetail.tezishApp.p3')}</P>
+        <P>{t('workDetail.tezishApp.p4')}</P>
+        <List ml={4} my={4}>
+          <ListItem>
+            <Meta>{t('common.meta.stack')}</Meta>
+            <span>{t('workDetail.tezishApp.stack')}</span>
+          </ListItem>
+          <ListItem>
+            <Meta>{t('common.meta.website')}</Meta>
+            <Link href="https://www.tezish.me">
+              {t('workDetail.tezishApp.websiteText')}{' '}
+              <ExternalLinkIcon mx="2px" />
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Meta>{t('common.meta.platform')}</Meta>
+            <span>{t('workDetail.tezishApp.platform')}</span>
+          </ListItem>
+        </List>
+
+        <WorkImage
+          src="/images/works/tezish1.jpg"
+          alt={t('workDetail.tezishApp.alt1')}
+        />
+        <WorkImage
+          src="/images/works/tezish2.png"
+          alt={t('workDetail.tezishApp.alt2')}
+        />
+      </Container>
+    </Layout>
+  )
+}
 
 export default Work

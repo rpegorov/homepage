@@ -1,5 +1,6 @@
 import NextLink from 'next/link'
 import { Button } from '@chakra-ui/react'
+import { useLanguage } from '../lib/i18n'
 
 const Payhip = () => (
   <>
@@ -17,6 +18,7 @@ const Payhip = () => (
 )
 
 export const BuyButton = ({ productId, price }) => {
+  const { t } = useLanguage()
   const handleClick = e => {
     e.preventDefault()
     global.Payhip.Checkout.open({
@@ -31,7 +33,7 @@ export const BuyButton = ({ productId, price }) => {
       href={`https://payhip.com/b/${productId}`}
       colorScheme="teal"
     >
-      Buy Now - ${price}
+      {t('wallpaperDetail.common.buyButton', { price })}
     </Button>
   )
 }
