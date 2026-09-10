@@ -1,58 +1,44 @@
-import {
-  Box,
-  Container,
-  Badge,
-  Link,
-  List,
-  ListItem,
-  UnorderedList,
-  Heading,
-  Center
-} from '@chakra-ui/react'
-import { ExternalLinkIcon } from '@chakra-ui/icons'
+import { Container, Badge, List, ListItem } from '@chakra-ui/react'
 import { Title, WorkImage, Meta } from '../../components/work'
 import P from '../../components/paragraph'
 import Layout from '../../components/layouts/article'
+import { useLanguage } from '../../lib/i18n'
 
-const Work = () => (
-  <Layout title="FlameApp">
-    <Container>
-      <Title>
-        A mobile dating app. <Badge>2023-2024</Badge>
-      </Title>
-      <P>Role in the project: Team Leader, Backend developer.</P>
-      <P>About the project: a mobile dating app, similar to Tinder.</P>
-      <P>Team: 4 developers</P>
-      <P>
-        Responsibilities: Redesigned the application architecture. Organized the
-        work of the Agile team. Setting tasks. Code review. Conducting a Daily.
-        Checking the quality of completed tasks. Training of new employees.
-        Preparation of technical documentation. I set the code style.
-        Preparation of project documentation. Implemented the back part of the
-        admin panel. Changed the structure of the back part of the application.
-        Divided the monolith into microservices. Implemented back and front
-        interaction methods. Set up the development server. Deployed the back
-        and front parts on the server. I wrote configs for deploying
-        applications — nginx, dockercompose. Set up continuous integration of
-        changes via GitHub Actions (pipeline)
-      </P>
-      <List ml={4} my={4}>
-        <ListItem>
-          <Meta>Stack</Meta>
-          <span>
-            Express.js, Nest.js, Vue, Vite, PrismaORM, Kafka, Rabbit MQ
-          </span>
-        </ListItem>
-        <ListItem>
-          <Meta>Platform</Meta>
-          <span>iOS/ Android / Web</span>
-        </ListItem>
-      </List>
+const Work = () => {
+  const { t } = useLanguage()
 
-      <WorkImage src="/images/works/flame_phone.jpg" alt="FlameApp" />
-      <WorkImage src="/images/works/flame01.jpg" alt="FlameApp" />
-    </Container>
-  </Layout>
-)
+  return (
+    <Layout title="FlameApp">
+      <Container>
+        <Title>
+          {t('workDetail.flameApp.title')} <Badge>2023-2024</Badge>
+        </Title>
+        <P>{t('workDetail.flameApp.p1')}</P>
+        <P>{t('workDetail.flameApp.p2')}</P>
+        <P>{t('workDetail.flameApp.p3')}</P>
+        <P>{t('workDetail.flameApp.p4')}</P>
+        <List ml={4} my={4}>
+          <ListItem>
+            <Meta>{t('common.meta.stack')}</Meta>
+            <span>{t('workDetail.flameApp.stack')}</span>
+          </ListItem>
+          <ListItem>
+            <Meta>{t('common.meta.platform')}</Meta>
+            <span>{t('workDetail.flameApp.platform')}</span>
+          </ListItem>
+        </List>
+
+        <WorkImage
+          src="/images/works/flame_phone.jpg"
+          alt={t('workDetail.flameApp.alt1')}
+        />
+        <WorkImage
+          src="/images/works/flame01.jpg"
+          alt={t('workDetail.flameApp.alt2')}
+        />
+      </Container>
+    </Layout>
+  )
+}
 
 export default Work

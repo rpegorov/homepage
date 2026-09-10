@@ -7,16 +7,18 @@ import {
   Divider,
   Button
 } from '@chakra-ui/react'
+import { useLanguage } from '../lib/i18n'
 
 const NotFound = () => {
+  const { t } = useLanguage()
   return (
     <Container>
-      <Heading as="h1">Not found</Heading>
-      <Text>The page you&apos;re looking for was not found.</Text>
+      <Heading as="h1">{t('notFound.title')}</Heading>
+      <Text>{t('notFound.body')}</Text>
       <Divider my={6} />
       <Box my={6} align="center">
         <Button as={NextLink} href="/" colorScheme="teal">
-          Return to home
+          {t('notFound.button')}
         </Button>
       </Box>
     </Container>
