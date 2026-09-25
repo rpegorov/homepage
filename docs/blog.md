@@ -33,13 +33,16 @@
 - Первая строка `# Заголовок`, блок `site` и теги публикации в конце строк
   вырезаются. Теги поста — все остальные, кроме дерева `projects/craftzman`
   и `site/*`.
-- Картинки `attachment://…` копируются в `public/blog-assets/<lang>/<slug>/`.
+- Пост пишется в `src/content/blog/<lang>/<slug>.md`, картинки `attachment://…`
+  копируются рядом, в `<slug>/`; Astro сжимает их при сборке и отдаёт набор
+  размеров.
 - `[[Заголовок заметки]]` становится ссылкой на опубликованный пост того же языка.
 - Русский пост получает машинный перевод на английский (`/blog/<slug>`) с
   плашкой «Translated automatically». Английский пост, написанный вручную
   с тем же `slug`, заменяет машинный перевод.
-- В одном коммите с постом пересобираются `public/sitemap.xml` и RSS
-  (`/rss.xml`, `/ru/rss.xml`). Коммит уходит в `main`, Cloudflare пересобирает сайт.
+- Коммит уходит в `main`, Cloudflare пересобирает сайт. Sitemap, RSS
+  (`/rss.xml`, `/ru/rss.xml`) и картинки превью (`/og/<lang>/<slug>.png`)
+  Astro собирает сам.
 
 ## Установка на Mac
 
@@ -71,5 +74,6 @@ npm run import:drafta -- --commit      # записать и закоммити�
 
 Экспортёр, переводчик и publisher перенесены из drafta-homepage
 (ветка `site-publisher-test`). Всё, чем craftzman.ru отличается от drafta.org, —
-в `scripts/site.config.mjs`. Сайт читает посты через `scripts/lib/posts.mjs`,
-тем же парсером front matter, которым экспортёр их пишет. Тесты: `npm test`.
+в `scripts/site.config.mjs`. Сайт читает посты как коллекцию Astro
+(`src/content.config.ts`); `tests/frontmatter-contract.spec.mjs` проверяет, что
+вывод экспортёра проходит её схему. Тесты: `npm test`.

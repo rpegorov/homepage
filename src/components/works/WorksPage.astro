@@ -1,0 +1,37 @@
+---
+/* Список проектов: сначала работа по найму, под чертой — свои продукты. */
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import { t } from '../../i18n';
+import { localePath, type Lang } from '../../lib/lang';
+import { WORKS } from '../../data/works';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const groups = [1, 2].map((group) => WORKS.filter((work) => work.group === group));
+---
+<Base
+  lang={lang}
+  title={`${t(lang, 'seo.worksTitle')} — Rostislav Egorov (craftzman)`}
+  description={t(lang, 'seo.worksDescription')}
+  canonicalPath={localePath('/works', lang)}
+>
+  <h1 class="section-title">{t(lang, 'works.heading')}</h1>
+  {groups.map((works, i) => (
+    <>
+      {i > 0 && <hr class="divider" />}
+      <div class="grid">
+        {works.map((work) => (
+          <a class="card" href={localePath(`/works/${work.slug}`, lang)}>
+            <Image class="card__thumb" src={work.thumbnail} alt="" widths={[360, 720]} sizes="(max-width: 640px) 100vw, 336px" />
+            <span class="card__title">{t(lang, `works.items.${work.key}.title`)}</span>
+            <span class="card__meta">{work.years}</span>
+            <span class="card__text">{t(lang, `works.items.${work.key}.description`)}</span>
+          </a>
+        ))}
+      </div>
+    </>
+  ))}
+</Base>

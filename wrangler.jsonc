@@ -2,6 +2,6 @@
   "name": "homepage",
   "compatibility_date": "2026-05-25",
   "assets": {
-    "directory": "./out"
+    "directory": "./dist"
   }
 }

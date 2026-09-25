@@ -1,9 +1,15 @@
 // Шов между экспортёром и сайтом: что пишет scripts/lib/frontmatter.mjs, то
-// сайт должен принять (scripts/lib/posts.mjs, validatePost), а битое — отвергнуть.
-import { describe, expect, it } from 'vitest';
-import { renderBlogFrontmatter } from '../scripts/lib/frontmatter.mjs';
-import { validatePost } from '../scripts/lib/posts.mjs';
-import { parseMarkdown } from './helpers/contract.mjs';
+// должна принять схема коллекции blog из src/content.config.ts. Front matter
+// разбирается так же, как его разбирает Astro. Перенесено из drafta-homepage.
+import { describe, expect, it, vi } from 'vitest';
+import { z } from 'astro/zod';
+import { contractFn, importContract, parseMarkdown } from './helpers/contract.mjs';
+
+// content.config.ts imports the virtual `astro:content`; outside the Astro build
+// defineCollection is the identity, which is all the schemas need.
+vi.mock('astro:content', () => ({ defineCollection: (c) => c }));
+
+const FRONTMATTER = 'scripts/lib/frontmatter.mjs';
 
 const BLOG_INPUT = {
   title: 'Hello world',
@@ -16,41 +22,59 @@ const BLOG_INPUT = {
   tags: ['drafta'],
 };
 
-const rendered = (overrides = {}) => parseMarkdown(renderBlogFrontmatter({ ...BLOG_INPUT, ...overrides })).data;
+async function collections() {
+  const mod = await importContract('src/content.config.ts', '2.0');
+  return mod.collections;
+}
 
-describe('front matter contract', () => {
-  it('the site accepts renderBlogFrontmatter output as is', () => {
-    const data = rendered();
-    expect(validatePost(data, 'en', 'hello-world')).toEqual([]);
-    expect(data).toMatchObject({ lang: 'en', slug: 'hello-world', draftaId: BLOG_INPUT.draftaId, tags: ['drafta'] });
-  });
+/** A collection's zod schema; Astro passes `image()` to function schemas. */
+function schemaOf(collection) {
+  const { schema } = collection;
+  return typeof schema === 'function' ? schema({ image: () => z.string() }) : schema;
+}
 
-  it('keeps the machine-translation marks the post page reads', () => {
-    const data = rendered({
-      machineTranslated: true,
-      translation: { sourceHash: 'abc', sourceLang: 'ru', provider: 'anthropic', model: 'm', at: '2026-09-25T10:00:00Z' },
-    });
-    expect(validatePost(data, 'en', 'hello-world')).toEqual([]);
-    expect(data.machineTranslated).toBe(true);
-    expect(data.translation.sourceLang).toBe('ru');
+async function blogSchema() {
+  const { blog } = await collections();
+  if (!blog) throw new Error('src/content.config.ts: нет коллекции `blog` — контракт ЗАДАЧИ-2.0');
+  return schemaOf(blog);
+}
+
+async function renderedBlogData(overrides = {}) {
+  const mod = await importContract(FRONTMATTER, '2.0');
+  const render = contractFn(mod, ['renderBlogFrontmatter'], FRONTMATTER, '2.0');
+  return parseMarkdown(render({ ...BLOG_INPUT, ...overrides })).data;
+}
+
+describe('ЗАДАЧА-2.0 front matter contract', () => {
+  it('[wiring] content.config.ts has a blog collection that accepts renderBlogFrontmatter output', async () => {
+    const schema = await blogSchema();
+    const result = schema.safeParse(await renderedBlogData());
+    expect(result.error?.issues ?? []).toEqual([]);
+    expect(result.data).toMatchObject({ lang: 'en', slug: 'hello-world', draftaId: BLOG_INPUT.draftaId });
+    // §11.9: machineTranslated is part of the contract and defaults to false.
+    expect(result.data.machineTranslated).toBe(false);
   });
 });
 
-describe('front matter contract — rejections', () => {
-  it('a post without draftaId is rejected', () => {
-    const { draftaId, ...withoutId } = rendered();
+describe('ЗАДАЧА-2.0 front matter contract — rejections', () => {
+  it('blog front matter without draftaId does not pass the schema', async () => {
+    const schema = await blogSchema();
+    const { draftaId, ...withoutId } = await renderedBlogData();
     expect(draftaId).toBe(BLOG_INPUT.draftaId);
-    expect(validatePost(withoutId, 'en', 'hello-world')).toContain('draftaId');
+    expect(schema.safeParse(withoutId).success).toBe(false);
   });
 
-  it('lang or slug that disagree with the file location are rejected', () => {
-    expect(validatePost(rendered(), 'ru', 'hello-world')).toContain('lang');
-    expect(validatePost(rendered(), 'en', 'other-slug')).toContain('slug');
+  it("lang 'de' is rejected", async () => {
+    const schema = await blogSchema();
+    const data = await renderedBlogData();
+    expect(schema.safeParse({ ...data, lang: 'de' }).success).toBe(false);
   });
 
-  it('a date that is not YYYY-MM-DD is rejected', () => {
+  it('a date that is not YYYY-MM-DD is rejected', async () => {
+    const schema = await blogSchema();
+    const data = await renderedBlogData();
     for (const date of ['2026-9-5', '25.09.2026', '2026-09-21T10:00:00Z']) {
-      expect(validatePost(rendered({ date }), 'en', 'hello-world'), date).toContain('date');
+      expect(schema.safeParse({ ...data, date }).success, date).toBe(false);
     }
   });
 });

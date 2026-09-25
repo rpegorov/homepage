@@ -1,0 +1,99 @@
+---
+/* Главная на обоих языках (src/pages/index.astro и src/pages/ru/index.astro). */
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Voxel from './Voxel.astro';
+import { t } from '../../i18n';
+import { localePath, type Lang } from '../../lib/lang';
+import { ICONS } from '../../lib/icons';
+import avatar from '../../assets/rostislav.jpg';
+import banner from '../../assets/rostcamp-banner.jpeg';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const site = Astro.site!.origin;
+const bio = t<Array<{ year: string; text: string }>>(lang, 'home.bio.items');
+
+const social = [
+  { href: 'https://github.com/rpegorov', icon: 'github', label: '@rpegorov' },
+  { href: 'https://vk.com/w1shmaster', icon: 'vk', label: '@w1shmaster' },
+  { href: 'https://www.youtube.com/@ROSTCAMP', icon: 'youtube', label: '@ROSTCAMP' },
+  { href: 'https://www.instagram.com/w1sh.master/', icon: 'instagram', label: '@w1sh.master' },
+  { href: 'https://www.linkedin.com/in/rostislav-egorov-2721b8220/', icon: 'linkedin', label: '@Rostislav Egorov' },
+  { href: 'https://www.t.me/w1shmaster', icon: 'telegram', label: '@w1shmaster' },
+];
+
+// schema.org Person: связывает сайт с профилями в одну карточку человека.
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: lang === 'ru' ? 'Ростислав Егоров' : 'Rostislav Egorov',
+  alternateName: ['craftzman', 'w1shmaster', 'Rostislav Egorov'],
+  url: `${site}${localePath('/', lang)}`,
+  jobTitle: lang === 'ru' ? 'Архитектор и техлид' : 'Software Architect and Tech Lead',
+  knowsAbout: ['Rust', 'Go', 'Java', 'TypeScript', 'IIoT', 'Industrial telemetry', 'AI agents'],
+  sameAs: social.map((s) => s.href),
+};
+---
+<Base
+  lang={lang}
+  title={t(lang, 'seo.homeTitle')}
+  description={t(lang, 'seo.homeDescription')}
+  canonicalPath={localePath('/', lang)}
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(person)} />
+
+  <Voxel />
+
+  <div class="hero">
+    <div class="hero__text">
+      <h1 class="hero__name">{t(lang, 'home.heading')}</h1>
+      <p class="lead">{t(lang, 'home.tagline')}</p>
+      <p class="hero__tagline">wish <span>→</span> ship</p>
+    </div>
+    <Image class="hero__avatar" src={avatar} alt={t(lang, 'home.heading')} width={200} height={200} loading="eager" />
+  </div>
+
+  <section class="section">
+    <h2 class="section-title">{t(lang, 'home.work.heading')}</h2>
+    <p class="prose-p">{t(lang, 'home.work.body')}</p>
+    <p class="center">
+      <a class="btn" href={localePath('/works', lang)}>{t(lang, 'home.work.button')} <span aria-hidden="true">→</span></a>
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">{t(lang, 'home.bio.heading')}</h2>
+    <ul class="bio">
+      {bio.map((item) => (
+        <li><span class="bio__year">{item.year}</span><span>{item.text}</span></li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">{t(lang, 'home.love.heading')}</h2>
+    <p class="prose-p">
+      {t(lang, 'home.love.art')}, {t(lang, 'home.love.music')},{' '}
+      <a href="https://www.instagram.com/w1sh.master/" rel="noopener" target="_blank">{t(lang, 'home.love.photography')}</a>,{' '}
+      {t(lang, 'home.love.ml')},{' '}
+      <a href="https://rutube.ru/channel/53860712/" rel="noopener" target="_blank">{t(lang, 'home.love.campingVlog')}</a>
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">{t(lang, 'home.web.heading')}</h2>
+    <ul class="social">
+      {social.map(({ href, icon, label }) => (
+        <li><a href={href} rel="noopener" target="_blank"><span set:html={ICONS[icon]} />{label}</a></li>
+      ))}
+    </ul>
+    <a class="banner" href="https://www.youtube.com/@ROSTCAMP" rel="noopener" target="_blank">
+      <Image src={banner} alt="ROSTCAMP" widths={[720, 1440]} sizes="(max-width: 768px) 100vw, 736px" />
+      <span class="banner__title">ROSTCAMP</span>
+      <span class="banner__caption">{t(lang, 'home.web.youtubeCaption')}</span>
+    </a>
+  </section>
+</Base>

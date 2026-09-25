@@ -1,0 +1,2 @@
+# Старый адрес sitemap (прежний сайт на Next.js) — на индекс, который пишет @astrojs/sitemap.
+/sitemap.xml /sitemap-index.xml 301

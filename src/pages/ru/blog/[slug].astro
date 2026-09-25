@@ -1,0 +1,11 @@
+---
+import PostPage from '../../../components/blog/PostPage.astro';
+import { postsOf, twinOf, type Post } from '../../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await postsOf('ru');
+  return Promise.all(posts.map(async (post) => ({ params: { slug: post.data.slug }, props: { post, twin: await twinOf(post) } })));
+}
+const { post, twin } = Astro.props as { post: Post; twin?: Post };
+---
+<PostPage post={post} twin={twin} />

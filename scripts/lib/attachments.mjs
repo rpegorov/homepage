@@ -1,7 +1,7 @@
 // `attachment://<noteId>/<file>` links (PLAN v2 §4 п. 3, §11.0, §11.1 п. 12).
-// Only files the text mentions are published; each is copied into the page's
-// asset folder (scripts/site.config.mjs) and the link becomes `<assetUrl>/<file>`,
-// so deleting the page deletes its folder. Path math only — no IO here.
+// Only files the text mentions are published; each is copied next to the page
+// as `<slug>/<file>` and the link becomes `./<slug>/<file>` (scripts/site.config.mjs),
+// so Astro optimises it and deleting the page deletes its folder. Path math only — no IO here.
 import { dirname, join } from 'node:path';
 
 const SCHEME = 'attachment://';

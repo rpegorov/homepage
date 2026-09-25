@@ -1,0 +1,15 @@
+---
+import { formatDay } from '../../lib/posts';
+import type { Lang } from '../../lib/lang';
+
+interface Props {
+  lang: Lang;
+  date: string;
+  tags: string[];
+}
+const { lang, date, tags } = Astro.props;
+---
+<p class="post-meta">
+  <time datetime={date}>{formatDay(date, lang)}</time>
+  {tags.length > 0 && <span>{tags.map((tag) => `#${tag}`).join(' ')}</span>}
+</p>

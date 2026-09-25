@@ -20,7 +20,6 @@
 // never fails the run: it is reported in `translationDeferred`.
 //
 // All file and git IO lives here; the rules live in scripts/lib/*.mjs.
-import { execFileSync } from 'node:child_process';
 import { copyFileSync, existsSync, lstatSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { basename, dirname, join } from 'node:path';
@@ -39,7 +38,7 @@ import { parseFrontmatter } from './lib/frontmatter.mjs';
 import { commitPaths, pushFastForward } from './lib/git.mjs';
 import { decodeNote } from './lib/notes.mjs';
 import { buildPlan, contentDirs, pageTarget, renderPage, withoutTitleLine } from './lib/plan.mjs';
-import { FEEDS, PUBLISH_TAGS } from './site.config.mjs';
+import { PUBLISH_TAGS } from './site.config.mjs';
 import { SKIP, selectNote } from './lib/select.mjs';
 import { removeTags } from './lib/tags.mjs';
 import { rewriteWikilinks, titleKey } from './lib/wikilinks.mjs';
@@ -281,14 +280,6 @@ function removePage(site, entry) {
   rmSync(join(site, entry.assetDir), { recursive: true, force: true });
 }
 
-/** Regenerates the sitemap and RSS from the posts now on disk; returns their paths. */
-function regenerateFeeds(site) {
-  // A site checkout without the generator (an older clone, a test world) keeps its feeds.
-  if (!existsSync(join(site, FEEDS.script))) return [];
-  execFileSync(process.execPath, [join(site, FEEDS.script)], { cwd: site, stdio: 'ignore' });
-  return [...FEEDS.outputs];
-}
-
 /** Applies the plan to the working tree; returns the paths it touched. */
 function applyPlan(site, plan) {
   const touched = [];
@@ -300,7 +291,6 @@ function applyPlan(site, plan) {
     removePage(site, entry);
     touched.push(entry.path, entry.assetDir);
   }
-  if (touched.length > 0) touched.push(...regenerateFeeds(site));
   return touched;
 }
 
@@ -351,8 +341,7 @@ function usageDelta(before, after) {
 /** Writes, commits and (with --push) pushes one translation; returns the commit sha. */
 async function publishTranslation(options, job, page) {
   writePage(options.site, { page });
-  const paths = [page.path, page.assetDir, ...regenerateFeeds(options.site)];
-  const commit = await commitPaths(options.site, paths, `content: translate ${job.slug} (${job.from}→${job.to})`);
+  const commit = await commitPaths(options.site, [page.path, page.assetDir], `content: translate ${job.slug} (${job.from}→${job.to})`);
   if (options.push) await pushFastForward(options.site, options.branch);
   return commit.committed ? commit.sha : undefined;
 }

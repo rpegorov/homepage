@@ -34,7 +34,7 @@ export const ID = {
   foreign: 'FFFFFFFF-0000-4000-8000-0000000000FF',
 };
 
-const SITE_DIRS = ['content/blog/en', 'content/blog/ru'];
+const SITE_DIRS = ['src/content/blog/en', 'src/content/blog/ru'];
 const GIT_ENV = {
   GIT_AUTHOR_NAME: 'Tester',
   GIT_AUTHOR_EMAIL: 'tester@example.invalid',
