@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>craftzman — Blog</title>
+    <link>https://www.craftzman.ru/blog</link>
+    <description>Notes by Rostislav Egorov (craftzman): architecture, Rust and Go, industrial telemetry, AI agents, indie products.</description>
+    <language>en</language>
+    <atom:link href="https://www.craftzman.ru/rss.xml" rel="self" type="application/rss+xml"/>
+
+  </channel>
+</rss>

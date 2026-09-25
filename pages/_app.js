@@ -11,7 +11,10 @@ if (typeof window !== 'undefined') {
 
 function Website({ Component, pageProps, router }) {
   return (
-    <LanguageProvider>
+    <LanguageProvider
+      languages={pageProps.languages}
+      fallbackPath={pageProps.languageFallback}
+    >
       <Chakra cookies={pageProps.cookies}>
         <Fonts />
         <Layout router={router}>
