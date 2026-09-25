@@ -5,6 +5,10 @@
 - [Three.js](https://threejs.org/) - 3D library for JavaScript
 - [Framer Motion](https://www.framer.com/motion/) - An animation library for React
 
+## Blog
+
+Посты публикуются из Drafta по тегу `#projects/craftzman/blog` — см. [docs/blog.md](docs/blog.md).
+
 ## Project structure
 
 ```

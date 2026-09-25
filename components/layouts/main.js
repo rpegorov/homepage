@@ -6,7 +6,7 @@ import { useLanguage } from '../../lib/i18n'
 import { absoluteUrl, OG_IMAGE } from '../../lib/seo'
 
 const Main = ({ children, router }) => {
-  const { t, lang } = useLanguage()
+  const { t, lang, languages } = useLanguage()
   const path = router.asPath
   const canonical = absoluteUrl(path, lang)
   // У страницы 404 нет адреса, на который стоит ссылаться поисковикам.
@@ -27,17 +27,20 @@ const Main = ({ children, router }) => {
         <meta name="author" content="craftzman (Rostislav Egorov)" />
         <meta name="robots" content="index, follow" key="robots" />
         {indexable && <link rel="canonical" href={canonical} key="canonical" />}
-        {indexable && (
-          <link rel="alternate" hrefLang="en" href={absoluteUrl(path, 'en')} />
-        )}
-        {indexable && (
-          <link rel="alternate" hrefLang="ru" href={absoluteUrl(path, 'ru')} />
-        )}
+        {indexable &&
+          languages.map(l => (
+            <link
+              key={`hreflang-${l}`}
+              rel="alternate"
+              hrefLang={l}
+              href={absoluteUrl(path, l)}
+            />
+          ))}
         {indexable && (
           <link
             rel="alternate"
             hrefLang="x-default"
-            href={absoluteUrl(path, 'en')}
+            href={absoluteUrl(path, languages.includes('en') ? 'en' : lang)}
           />
         )}
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />

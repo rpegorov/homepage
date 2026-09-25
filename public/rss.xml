@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>craftzman — Blog</title>
+    <link>https://www.craftzman.ru/blog</link>
+    <description>Notes by Rostislav Egorov (craftzman): architecture, Rust and Go, industrial telemetry, AI agents, indie products.</description>
+    <language>en</language>
+    <atom:link href="https://www.craftzman.ru/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>What Drafta looks like: themes, typography, export</title>
+      <link>https://www.craftzman.ru/blog/temy-tipografika-eksport</link>
+      <guid isPermaLink="true">https://www.craftzman.ru/blog/temy-tipografika-eksport</guid>
+      <description>Eleven built-in Drafta themes and custom themes in JSON, four typography presets, and export to PDF, DOCX, HTML, and Markdown via styling profiles.</description>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+
+    </item>
+    <item>
+      <title>MCP server Drafta: agents read and write notes</title>
+      <link>https://www.craftzman.ru/blog/mcp-server</link>
+      <guid isPermaLink="true">https://www.craftzman.ru/blog/mcp-server</guid>
+      <description>Drafta's built-in MCP server gives Claude and other clients 12 tools for the entire library. How to connect it, what it can do, and how to restrict it to read-only.</description>
+      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
+
+    </item>
+    <item>
+      <title>AI assistant in Drafta: ⌘J and your key</title>
+      <link>https://www.craftzman.ru/blog/ai-assistent</link>
+      <guid isPermaLink="true">https://www.craftzman.ru/blog/ai-assistent</guid>
+      <description>How the Drafta AI assistant works: a popover via ⌘J, seven ready-made commands, editing a selection and inserting at the cursor, Anthropic, OpenAI, or DeepSeek keys.</description>
+      <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
+
+    </item>
+    <item>
+      <title>Synchronization and encryption in Drafta</title>
+      <link>https://www.craftzman.ru/blog/sinhronizaciya-i-shifrovanie</link>
+      <guid isPermaLink="true">https://www.craftzman.ru/blog/sinhronizaciya-i-shifrovanie</guid>
+      <description>How Drafta syncs notes via the cloud or its own CouchDB, encrypts them with AES-256-GCM on your Mac, and why the account has two passwords.</description>
+      <pubDate>Wed, 30 Sep 2026 00:00:00 GMT</pubDate>
+
+    </item>
+    <item>
+      <title>Revision history and backups</title>
+      <link>https://www.craftzman.ru/blog/istoriya-reviziy-i-bekapy</link>
+      <guid isPermaLink="true">https://www.craftzman.ru/blog/istoriya-reviziy-i-bekapy</guid>
+      <description>How Drafta stores up to 30 revisions of each note with diff and one-click rollback and how it backs up the entire library to ZIP.</description>
+      <pubDate>Tue, 29 Sep 2026 00:00:00 GMT</pubDate>
+
+    </item>
+    <item>
+      <title>Typing from the keyboard: shortcuts, snippets, autocorrect</title>
+      <link>https://www.craftzman.ru/blog/drafta-s-klaviatury</link>
+      <guid isPermaLink="true">https://www.craftzman.ru/blog/drafta-s-klaviatury</guid>
+      <description>Drafta hotkeys, quick navigation with ⌘P, slash snippets, and type-time autocorrects — everything that keeps you from reaching for the mouse.</description>
+      <pubDate>Mon, 28 Sep 2026 00:00:00 GMT</pubDate>
+
+    </item>
+    <item>
+      <title>Drafta 1.0 has been released</title>
+      <link>https://www.craftzman.ru/blog/drafta-1-0</link>
+      <guid isPermaLink="true">https://www.craftzman.ru/blog/drafta-1-0</guid>
+      <description>Drafta 1.0 — a native Markdown editor for programmers on macOS. What's in the release, who it's for, how much it costs, and what's next.</description>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
+
+    </item>
+    <item>
+      <title>Drafta Editor: Markdown, preview, and split</title>
+      <link>https://www.craftzman.ru/blog/redaktor-markdown-prevyu-split</link>
+      <guid isPermaLink="true">https://www.craftzman.ru/blog/redaktor-markdown-prevyu-split</guid>
+      <description>How the Drafta editor works: CodeMirror 6, three view modes, live Mermaid and KaTeX preview, callouts, table of contents, and note statistics.</description>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
+
+    </item>
+    <item>
+      <title>Notes are files: notebooks, tags, statuses, and links</title>
+      <link>https://www.craftzman.ru/blog/zametki-eto-faily</link>
+      <guid isPermaLink="true">https://www.craftzman.ru/blog/zametki-eto-faily</guid>
+      <description>How Drafta stores and organizes notes: Markdown files with YAML front-matter, nested notebooks, tags, four statuses, bookmarks, and a link graph.</description>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
+
+    </item>
+  </channel>
+</rss>

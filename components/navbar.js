@@ -21,7 +21,7 @@ import { IoLogoGithub } from 'react-icons/io5'
 import { useLanguage } from '../lib/i18n'
 
 const LinkItem = ({ href, path, target, children, ...props }) => {
-  const active = path === href
+  const active = path === href || path.startsWith(`${href}/`)
   return (
     <Link
       as={NextLink}
@@ -99,6 +99,9 @@ const Navbar = props => {
           <LinkItem href={localize('/works')} path={path}>
             {t('common.nav.works')}
           </LinkItem>
+          <LinkItem href={localize('/blog')} path={path}>
+            {t('common.nav.blog')}
+          </LinkItem>
           <LinkItem
             target="_blank"
             href="https://github.com/rpegorov"
@@ -131,6 +134,9 @@ const Navbar = props => {
                 </MenuItem>
                 <MenuItem as={MenuLink} href={localize('/works')}>
                   {t('common.nav.works')}
+                </MenuItem>
+                <MenuItem as={MenuLink} href={localize('/blog')}>
+                  {t('common.nav.blog')}
                 </MenuItem>
                 <MenuItem
                   as={Link}
