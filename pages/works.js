@@ -26,7 +26,7 @@ const Works = () => {
   const items = t('works.items')
 
   return (
-    <Layout title="Works">
+    <Layout title={t('seo.worksTitle')} description={t('seo.worksDescription')}>
       <Container>
         <Heading as="h3" fontSize={20} mb={4}>
           {t('works.heading')}

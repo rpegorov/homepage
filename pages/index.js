@@ -27,6 +27,8 @@ import {
 import { FaTelegram } from 'react-icons/fa'
 import thumbYouTube from '../public/images/links/chanel-banner.jpeg'
 import Image from 'next/image'
+import Head from 'next/head'
+import { SITE_URL } from '../lib/seo'
 import VoxelLoader from '../components/voxel-loader'
 import { useLanguage } from '../lib/i18n'
 
@@ -35,12 +37,51 @@ const LazyVoxelDog = dynamic(() => import('../components/voxel'), {
   loading: () => <VoxelLoader />
 })
 
+// schema.org Person: связывает сайт с профилями, чтобы поисковики собирали
+// их в одну карточку человека.
+const personJsonLd = lang => ({
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: lang === 'ru' ? 'Ростислав Егоров' : 'Rostislav Egorov',
+  alternateName: ['craftzman', 'w1shmaster', 'Rostislav Egorov'],
+  url: lang === 'ru' ? `${SITE_URL}/ru` : `${SITE_URL}/`,
+  image: `${SITE_URL}/images/rostislav.jpg`,
+  jobTitle:
+    lang === 'ru' ? 'Архитектор и техлид' : 'Software Architect and Tech Lead',
+  knowsAbout: [
+    'Rust',
+    'Go',
+    'Java',
+    'TypeScript',
+    'IIoT',
+    'Industrial telemetry',
+    'AI agents'
+  ],
+  sameAs: [
+    'https://github.com/rpegorov',
+    'https://www.linkedin.com/in/rostislav-egorov-2721b8220/',
+    'https://www.youtube.com/@ROSTCAMP',
+    'https://www.t.me/w1shmaster',
+    'https://vk.com/w1shmaster',
+    'https://www.instagram.com/w1sh.master/'
+  ]
+})
+
 const Home = () => {
-  const { t } = useLanguage()
+  const { t, localize, lang } = useLanguage()
   const bioItems = t('home.bio.items')
 
   return (
     <Layout>
+      <Head>
+        <script
+          type="application/ld+json"
+          key="person-jsonld"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personJsonLd(lang))
+          }}
+        />
+      </Head>
       <Container>
         <LazyVoxelDog />
 
@@ -101,7 +142,7 @@ const Home = () => {
           <Box align="center" my={4}>
             <Button
               as={NextLink}
-              href="/works"
+              href={localize('/works')}
               scroll={false}
               rightIcon={<ChevronRightIcon />}
               colorScheme="teal"

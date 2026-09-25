@@ -4,10 +4,10 @@ import { ChevronRightIcon } from '@chakra-ui/icons'
 import { useLanguage } from '../lib/i18n'
 
 export const Title = ({ children }) => {
-  const { t } = useLanguage()
+  const { t, localize } = useLanguage()
   return (
     <Box>
-      <Link as={NextLink} href="/works">
+      <Link as={NextLink} href={localize('/works')}>
         {t('common.nav.works')}
       </Link>
       <span>

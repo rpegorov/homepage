@@ -8,7 +8,10 @@ const Work = () => {
   const { t } = useLanguage()
 
   return (
-    <Layout title="FlameApp">
+    <Layout
+      title={t('works.items.flameApp.title')}
+      description={t('works.items.flameApp.description')}
+    >
       <Container>
         <Title>
           {t('workDetail.flameApp.title')} <Badge>2023-2024</Badge>

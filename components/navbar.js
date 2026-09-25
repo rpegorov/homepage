@@ -59,7 +59,7 @@ MenuLink.displayName = 'MenuLink'
 
 const Navbar = props => {
   const { path } = props
-  const { t } = useLanguage()
+  const { t, localize } = useLanguage()
 
   return (
     <Box
@@ -96,16 +96,9 @@ const Navbar = props => {
           flexGrow={1}
           mt={{ base: 4, md: 0 }}
         >
-          <LinkItem href="/works" path={path}>
+          <LinkItem href={localize('/works')} path={path}>
             {t('common.nav.works')}
           </LinkItem>
-          {/* <LinkItem href="/wallpapers" path={path}>
-            Wallpapers
-          </LinkItem>
-          <LinkItem href="/posts" path={path}>
-            Posts
-          </LinkItem>
-          <LinkItem href="https://uses.craftz.dog/">Uses</LinkItem> */}
           <LinkItem
             target="_blank"
             href="https://github.com/rpegorov"
@@ -133,21 +126,12 @@ const Navbar = props => {
                 aria-label={t('common.nav.optionsAria')}
               />
               <MenuList>
-                <MenuItem as={MenuLink} href="/">
+                <MenuItem as={MenuLink} href={localize('/')}>
                   {t('common.nav.about')}
                 </MenuItem>
-                <MenuItem as={MenuLink} href="/works">
+                <MenuItem as={MenuLink} href={localize('/works')}>
                   {t('common.nav.works')}
                 </MenuItem>
-                {/* <MenuItem as={MenuLink} href="/wallpapers">
-                  Wallpapers
-                </MenuItem>
-                <MenuItem as={MenuLink} href="/posts">
-                  Posts
-                </MenuItem>
-                <MenuItem as={MenuLink} href="https://uses.craftz.dog/">
-                  Uses
-                </MenuItem> */}
                 <MenuItem
                   as={Link}
                   href="https://github.com/craftzdog/craftzdog-homepage"
