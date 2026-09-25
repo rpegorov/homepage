@@ -8,8 +8,10 @@ const variants = {
   exit: { opacity: 0, x: -0, y: 20 }
 }
 
-const Layout = ({ children, title }) => {
-  const t = `${title} - Rostislav Egorov`
+// title и description страницы перекрывают общие из layouts/main.js:
+// у тегов те же key, next/head оставляет последний.
+const Layout = ({ children, title, description }) => {
+  const t = title ? `${title} — Rostislav Egorov (craftzman)` : null
   return (
     <motion.article
       initial="hidden"
@@ -20,13 +22,28 @@ const Layout = ({ children, title }) => {
       style={{ position: 'relative' }}
     >
       <>
-        {title && (
-          <Head>
-            <title>{t}</title>
-            <meta name="twitter:title" content={t} />
-            <meta property="og:title" content={t} />
-          </Head>
-        )}
+        <Head>
+          {t && <title key="title">{t}</title>}
+          {t && <meta property="og:title" content={t} key="og:title" />}
+          {t && <meta name="twitter:title" content={t} key="twitter:title" />}
+          {description && (
+            <meta name="description" content={description} key="description" />
+          )}
+          {description && (
+            <meta
+              property="og:description"
+              content={description}
+              key="og:description"
+            />
+          )}
+          {description && (
+            <meta
+              name="twitter:description"
+              content={description}
+              key="twitter:description"
+            />
+          )}
+        </Head>
         {children}
 
         <GridItemStyle />

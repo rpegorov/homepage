@@ -9,7 +9,10 @@ const Work = () => {
   const { t } = useLanguage()
 
   return (
-    <Layout title="Ruslo">
+    <Layout
+      title={t('works.items.ruslo.title')}
+      description={t('works.items.ruslo.description')}
+    >
       <Container>
         <Title>
           {t('workDetail.ruslo.title')} <Badge>2026–</Badge>
