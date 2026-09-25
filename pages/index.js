@@ -3,6 +3,7 @@ import {
   Link,
   Container,
   Heading,
+  Text,
   Box,
   SimpleGrid,
   Button,
@@ -48,7 +49,22 @@ const Home = () => {
             <Heading as="h2" variant="page-title">
               {t('home.heading')}
             </Heading>
-            <p>{t('home.tagline')}</p>
+            <Text fontSize="19px" lineHeight={1.55} color="ink-soft">
+              {t('home.tagline')}
+            </Text>
+            <Text
+              mt={2}
+              fontFamily="mono"
+              fontSize="14px"
+              fontWeight={600}
+              color="muted"
+            >
+              wish{' '}
+              <Text as="span" color="seal">
+                →
+              </Text>{' '}
+              ship
+            </Text>
           </Box>
           <Box
             flexShrink={0}
@@ -57,8 +73,9 @@ const Home = () => {
             textAlign="center"
           >
             <Box
-              borderColor="whiteAlpha.800"
-              borderWidth={2}
+              borderColor="bg-soft"
+              bg="bg-soft"
+              borderWidth={4}
               borderStyle="solid"
               w="100px"
               h="100px"
