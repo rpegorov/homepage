@@ -6,6 +6,77 @@
     <description>Заметки Ростислава Егорова (craftzman): архитектура, Rust и Go, промышленная телеметрия, ИИ-агенты, свои продукты.</description>
     <language>ru</language>
     <atom:link href="https://www.craftzman.ru/ru/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Как выглядит Drafta: темы, типографика, экспорт</title>
+      <link>https://www.craftzman.ru/ru/blog/temy-tipografika-eksport</link>
+      <guid isPermaLink="true">https://www.craftzman.ru/ru/blog/temy-tipografika-eksport</guid>
+      <description>Одиннадцать встроенных тем Drafta и свои темы в JSON, четыре пресета типографики и экспорт в PDF, DOCX, HTML и Markdown по профилям оформления.</description>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
 
+    </item>
+    <item>
+      <title>MCP-сервер Drafta: агенты читают и пишут заметки</title>
+      <link>https://www.craftzman.ru/ru/blog/mcp-server</link>
+      <guid isPermaLink="true">https://www.craftzman.ru/ru/blog/mcp-server</guid>
+      <description>Встроенный MCP-сервер Drafta даёт Claude и другим клиентам 12 инструментов для всей библиотеки. Как подключить, что он умеет и как ограничить его чтением.</description>
+      <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
+
+    </item>
+    <item>
+      <title>AI-ассистент в Drafta: ⌘J и ваш ключ</title>
+      <link>https://www.craftzman.ru/ru/blog/ai-assistent</link>
+      <guid isPermaLink="true">https://www.craftzman.ru/ru/blog/ai-assistent</guid>
+      <description>Как работает AI-ассистент Drafta: поповер по ⌘J, семь готовых команд, правка выделения и вставка у курсора, ключи Anthropic, OpenAI или DeepSeek.</description>
+      <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
+
+    </item>
+    <item>
+      <title>Синхронизация и шифрование в Drafta</title>
+      <link>https://www.craftzman.ru/ru/blog/sinhronizaciya-i-shifrovanie</link>
+      <guid isPermaLink="true">https://www.craftzman.ru/ru/blog/sinhronizaciya-i-shifrovanie</guid>
+      <description>Как Drafta синхронизирует заметки через облако или свой CouchDB, шифрует их AES-256-GCM на вашем Mac и зачем у аккаунта два пароля.</description>
+      <pubDate>Wed, 30 Sep 2026 00:00:00 GMT</pubDate>
+
+    </item>
+    <item>
+      <title>История ревизий и резервные копии</title>
+      <link>https://www.craftzman.ru/ru/blog/istoriya-reviziy-i-bekapy</link>
+      <guid isPermaLink="true">https://www.craftzman.ru/ru/blog/istoriya-reviziy-i-bekapy</guid>
+      <description>Как Drafta хранит до 30 ревизий каждой заметки с диффом и возвратом в один клик и как делает резервные копии всей библиотеки в ZIP.</description>
+      <pubDate>Tue, 29 Sep 2026 00:00:00 GMT</pubDate>
+
+    </item>
+    <item>
+      <title>Drafta с клавиатуры: сочетания, сниппеты, автозамены</title>
+      <link>https://www.craftzman.ru/ru/blog/drafta-s-klaviatury</link>
+      <guid isPermaLink="true">https://www.craftzman.ru/ru/blog/drafta-s-klaviatury</guid>
+      <description>Горячие клавиши Drafta, быстрый переход по ⌘P, сниппеты через слеш и автозамены при наборе — всё, что позволяет не тянуться к мыши.</description>
+      <pubDate>Mon, 28 Sep 2026 00:00:00 GMT</pubDate>
+
+    </item>
+    <item>
+      <title>Вышел Drafta 1.0</title>
+      <link>https://www.craftzman.ru/ru/blog/drafta-1-0</link>
+      <guid isPermaLink="true">https://www.craftzman.ru/ru/blog/drafta-1-0</guid>
+      <description>Drafta 1.0 — нативный Markdown-редактор для программистов на macOS. Что в релизе, для кого он, сколько стоит и что дальше.</description>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
+
+    </item>
+    <item>
+      <title>Редактор Drafta: Markdown, превью и split</title>
+      <link>https://www.craftzman.ru/ru/blog/redaktor-markdown-prevyu-split</link>
+      <guid isPermaLink="true">https://www.craftzman.ru/ru/blog/redaktor-markdown-prevyu-split</guid>
+      <description>Как устроен редактор Drafta: CodeMirror 6, три режима просмотра, живое превью Mermaid и KaTeX, callouts, оглавление и статистика заметки.</description>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
+
+    </item>
+    <item>
+      <title>Заметки — это файлы: блокноты, теги, статусы и связи</title>
+      <link>https://www.craftzman.ru/ru/blog/zametki-eto-faily</link>
+      <guid isPermaLink="true">https://www.craftzman.ru/ru/blog/zametki-eto-faily</guid>
+      <description>Как Drafta хранит и упорядочивает заметки: Markdown-файлы с YAML front-matter, вложенные блокноты, теги, четыре статуса, закладки и граф связей.</description>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
+
+    </item>
   </channel>
 </rss>

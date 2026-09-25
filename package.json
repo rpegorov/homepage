@@ -4,7 +4,7 @@
   "description": "Rostislav website",
   "scripts": {
     "dev": "next dev -H 0.0.0.0",
-    "build": "node scripts/generate-feeds.mjs && next build",
+    "build": "node scripts/generate-feeds.mjs && next build && node scripts/optimize-images.mjs",
     "start": "next start",
     "prettier": "prettier --write .",
     "lint": "next lint",
