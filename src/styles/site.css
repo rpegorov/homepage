@@ -31,12 +31,16 @@ img {
   height: auto;
 }
 
+/* Ссылки без подчёркивания, оно появляется при наведении — как на прежнем
+   сайте; в тексте постов (.prose) подчёркнуты всегда. */
 a {
   color: var(--accent);
+  text-decoration: none;
   text-underline-offset: 3px;
 }
 a:hover {
   color: var(--accent-hover);
+  text-decoration: underline;
 }
 
 :focus-visible {
@@ -225,9 +229,9 @@ h3 {
 .page {
   /* Колонка ~60 знаков, как на прежнем сайте (Container Chakra по умолчанию):
      компактнее шапки, строки не расползаются. */
-  max-width: calc(592px + 2 * var(--space-4));
+  max-width: calc(600px + 2 * var(--space-4));
   margin: 0 auto;
-  padding: calc(var(--nav-height) + var(--space-5)) var(--space-4) var(--space-4);
+  padding: calc(var(--nav-height) + 10px) var(--space-4) var(--space-4);
 }
 .page:focus {
   outline: none;
@@ -278,7 +282,7 @@ h3 {
 }
 
 .prose-p {
-  margin: 0 0 var(--space-3);
+  margin: 0;
   text-align: justify;
   text-indent: 1em;
   hyphens: auto;
@@ -317,7 +321,7 @@ h3 {
   width: 640px;
   max-width: 100vw;
   aspect-ratio: 1;
-  margin: -120px 0 -200px;
+  margin: -106px 0 -200px;
   transform: translateX(-50%);
 }
 .voxel canvas {
@@ -479,7 +483,7 @@ h3 {
 /* Карточка (компонент Card брендбука): вся карточка — ссылка. */
 .card {
   display: block;
-  padding: var(--space-5);
+  padding: 20px;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   background: var(--surface);
@@ -530,7 +534,16 @@ h3 {
 .crumbs__sep {
   color: var(--muted);
 }
+.list-title {
+  margin-bottom: var(--space-4);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
 .crumbs__title {
+  font-family: var(--font-display);
   font-size: 20px;
   font-weight: 600;
 }
@@ -557,9 +570,6 @@ h3 {
   padding: 0 0 0 var(--space-4);
   list-style: none;
 }
-.meta-list li + li {
-  margin-top: var(--space-1);
-}
 .meta-list .badge {
   margin-right: var(--space-2);
   text-transform: uppercase;
@@ -582,6 +592,7 @@ h3 {
 }
 
 .post-meta {
+  margin: 0;
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
@@ -626,6 +637,13 @@ h3 {
 /* Текст поста: HTML из Markdown. */
 .prose {
   margin-top: var(--space-5);
+}
+.prose a {
+  text-decoration: underline;
+}
+.post-back {
+  margin: 0 0 var(--space-4);
+  font-size: 15px;
 }
 .prose > * + * {
   margin-top: 1em;

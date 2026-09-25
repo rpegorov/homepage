@@ -18,7 +18,7 @@ const groups = [1, 2].map((group) => WORKS.filter((work) => work.group === group
   description={t(lang, 'seo.worksDescription')}
   canonicalPath={localePath('/works', lang)}
 >
-  <h1 class="section-title">{t(lang, 'works.heading')}</h1>
+  <h1 class="list-title">{t(lang, 'works.heading')}</h1>
   {groups.map((works, i) => (
     <>
       {i > 0 && <hr class="divider" />}
@@ -27,7 +27,6 @@ const groups = [1, 2].map((group) => WORKS.filter((work) => work.group === group
           <a class="card" href={localePath(`/works/${work.slug}`, lang)}>
             <Image class="card__thumb" src={work.thumbnail} alt="" widths={[360, 720]} sizes="(max-width: 640px) 100vw, 336px" />
             <span class="card__title">{t(lang, `works.items.${work.key}.title`)}</span>
-            <span class="card__meta">{work.years}</span>
             <span class="card__text">{t(lang, `works.items.${work.key}.description`)}</span>
           </a>
         ))}
