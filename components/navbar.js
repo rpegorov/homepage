@@ -6,7 +6,6 @@ import {
   Box,
   Link,
   Stack,
-  Heading,
   Flex,
   Menu,
   MenuItem,
@@ -23,15 +22,26 @@ import { useLanguage } from '../lib/i18n'
 
 const LinkItem = ({ href, path, target, children, ...props }) => {
   const active = path === href
-  const inactiveColor = useColorModeValue('gray.800', 'whiteAlpha.900')
   return (
     <Link
       as={NextLink}
       href={href}
       scroll={false}
-      p={2}
-      bg={active ? 'grassTeal' : undefined}
-      color={active ? '#202023' : inactiveColor}
+      px={4}
+      py={3}
+      fontSize="15px"
+      fontWeight={600}
+      lineHeight={1}
+      borderRadius="8px"
+      color={active ? 'accent' : 'ink'}
+      boxShadow={
+        active ? 'inset 0 -2px 0 var(--chakra-colors-accent)' : undefined
+      }
+      _hover={{
+        bg: 'accent-soft',
+        color: 'accent-hover',
+        textDecoration: 'none'
+      }}
       target={target}
       {...props}
     >
@@ -56,23 +66,26 @@ const Navbar = props => {
       position="fixed"
       as="nav"
       w="100%"
-      bg={useColorModeValue('#ffffff40', '#20202380')}
-      css={{ backdropFilter: 'blur(10px)' }}
+      h="56px"
+      bg={useColorModeValue('#fbf7f080', '#1b191680')}
+      borderBottom="1px solid"
+      borderColor="border"
+      boxShadow="shadow-glass"
+      css={{ backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}
       zIndex={2}
       {...props}
     >
       <Container
         display="flex"
-        p={2}
+        h="56px"
+        px={4}
         maxW="container.md"
         wrap="wrap"
         align="center"
         justify="space-between"
       >
         <Flex align="center" mr={5}>
-          <Heading as="h1" size="lg" letterSpacing={'tighter'}>
-            <Logo />
-          </Heading>
+          <Logo />
         </Flex>
 
         <Stack
@@ -107,7 +120,7 @@ const Navbar = props => {
           </LinkItem>
         </Stack>
 
-        <Box flex={1} align="right">
+        <Flex flex={1} align="center" justify="flex-end">
           <ThemeToggleButton />
           <LanguageToggleButton />
 
@@ -144,7 +157,7 @@ const Navbar = props => {
               </MenuList>
             </Menu>
           </Box>
-        </Box>
+        </Flex>
       </Container>
     </Box>
   )
