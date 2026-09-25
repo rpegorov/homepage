@@ -14,6 +14,7 @@ const Work = () => {
         <Title>
           {t('workDetail.atomMind.title')} <Badge>2024-</Badge>
         </Title>
+        <P>{t('workDetail.atomMind.role')}</P>
         <P>{t('workDetail.atomMind.p1')}</P>
         <List ml={4} my={4}>
           <ListItem>

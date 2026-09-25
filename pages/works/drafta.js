@@ -37,6 +37,14 @@ const Work = () => {
         </List>
 
         <WorkImage
+          src="/images/works/drafta_editor.webp"
+          alt={t('workDetail.drafta.altEditor')}
+        />
+        <WorkImage
+          src="/images/works/drafta_preview.webp"
+          alt={t('workDetail.drafta.altPreview')}
+        />
+        <WorkImage
           src="/images/works/drafta_title.png"
           alt={t('workDetail.drafta.alt')}
         />
