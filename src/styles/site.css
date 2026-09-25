@@ -31,12 +31,16 @@ img {
   height: auto;
 }
 
+/* Ссылки без подчёркивания, оно появляется при наведении — как на прежнем
+   сайте; в тексте постов (.prose) подчёркнуты всегда. */
 a {
   color: var(--accent);
+  text-decoration: none;
   text-underline-offset: 3px;
 }
 a:hover {
   color: var(--accent-hover);
+  text-decoration: underline;
 }
 
 :focus-visible {
@@ -223,16 +227,18 @@ h3 {
 /* ── Страница ──────────────────────────────────────────────────────────── */
 
 .page {
-  max-width: 768px;
+  /* Колонка ~60 знаков, как на прежнем сайте (Container Chakra по умолчанию):
+     компактнее шапки, строки не расползаются. */
+  max-width: calc(600px + 2 * var(--space-4));
   margin: 0 auto;
-  padding: calc(var(--nav-height) + var(--space-5)) var(--space-4) var(--space-6);
+  padding: calc(var(--nav-height) + 10px) var(--space-4) var(--space-4);
 }
 .page:focus {
   outline: none;
 }
 
 .footer {
-  padding: var(--space-6) var(--space-4) var(--space-7);
+  padding: var(--space-4) var(--space-4) var(--space-6);
   color: var(--muted);
   font-size: 13px;
   text-align: center;
@@ -242,7 +248,7 @@ h3 {
 }
 
 .section {
-  margin-top: var(--space-6);
+  margin-top: var(--space-5);
 }
 
 /* Заголовок секции: h2 с подчёркиванием accent-glow 4px — наследие сайта. */
@@ -276,7 +282,8 @@ h3 {
 }
 
 .prose-p {
-  margin: 0 0 var(--space-3);
+  margin: 0;
+  text-align: justify;
   text-indent: 1em;
   hyphens: auto;
 }
@@ -308,11 +315,14 @@ h3 {
 /* ── Главная ───────────────────────────────────────────────────────────── */
 
 .voxel {
+  /* Шире колонки текста, как на прежнем сайте: сцена по центру страницы. */
   position: relative;
+  left: 50%;
   width: 640px;
-  max-width: 100%;
+  max-width: 100vw;
   aspect-ratio: 1;
-  margin: -120px auto -200px;
+  margin: -106px 0 -200px;
+  transform: translateX(-50%);
 }
 .voxel canvas {
   display: block;
@@ -341,13 +351,13 @@ h3 {
 @media (max-width: 768px) {
   .voxel {
     width: 480px;
-    margin: -60px auto -140px;
+    margin: -60px 0 -140px;
   }
 }
 @media (max-width: 520px) {
   .voxel {
     width: 280px;
-    margin: -20px auto -40px;
+    margin: -20px 0 -40px;
   }
 }
 
@@ -367,7 +377,7 @@ h3 {
   letter-spacing: -0.02em;
 }
 .hero__tagline {
-  margin-top: var(--space-2);
+  margin: var(--space-2) 0 0;
   font-family: var(--font-mono);
   font-size: 14px;
   font-weight: 600;
@@ -403,7 +413,7 @@ h3 {
   grid-template-columns: 56px 1fr;
 }
 .bio li + li {
-  margin-top: var(--space-1);
+  margin-top: 2px;
 }
 .bio__year {
   padding-top: 3px;
@@ -421,7 +431,7 @@ h3 {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
+  padding: 6px var(--space-3);
   border-radius: var(--radius-sm);
   font-weight: 600;
   text-decoration: none;
@@ -473,7 +483,7 @@ h3 {
 /* Карточка (компонент Card брендбука): вся карточка — ссылка. */
 .card {
   display: block;
-  padding: var(--space-5);
+  padding: 20px;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   background: var(--surface);
@@ -524,7 +534,16 @@ h3 {
 .crumbs__sep {
   color: var(--muted);
 }
+.list-title {
+  margin-bottom: var(--space-4);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
 .crumbs__title {
+  font-family: var(--font-display);
   font-size: 20px;
   font-weight: 600;
 }
@@ -551,9 +570,6 @@ h3 {
   padding: 0 0 0 var(--space-4);
   list-style: none;
 }
-.meta-list li + li {
-  margin-top: var(--space-1);
-}
 .meta-list .badge {
   margin-right: var(--space-2);
   text-transform: uppercase;
@@ -576,6 +592,7 @@ h3 {
 }
 
 .post-meta {
+  margin: 0;
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
@@ -620,6 +637,13 @@ h3 {
 /* Текст поста: HTML из Markdown. */
 .prose {
   margin-top: var(--space-5);
+}
+.prose a {
+  text-decoration: underline;
+}
+.post-back {
+  margin: 0 0 var(--space-4);
+  font-size: 15px;
 }
 .prose > * + * {
   margin-top: 1em;
