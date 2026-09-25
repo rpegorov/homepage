@@ -1,0 +1,10 @@
+---
+/* Одна 404 на оба языка: Cloudflare отдаёт её на любой несуществующий адрес. */
+import Base from '../layouts/Base.astro';
+---
+<Base lang="en" title="Not found — craftzman" description="Page not found." canonicalPath="/404" noindex>
+  <h1 class="page-title">Not found · Не найдено</h1>
+  <p class="lead">The page you're looking for was not found.<br />Страница, которую вы ищете, не найдена.</p>
+  <hr class="divider" />
+  <p class="center"><a class="btn" href="/">craftzman.ru</a> &nbsp; <a class="btn" href="/ru">По-русски</a></p>
+</Base>

@@ -1,4 +1,5 @@
-node_modules
-.next
+# Результаты сборки и зависимости.
+dist/
+.astro/
+node_modules/
 .DS_Store
-out

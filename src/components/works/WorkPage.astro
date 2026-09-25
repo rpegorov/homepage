@@ -1,0 +1,51 @@
+---
+/* Страница проекта: «Проекты › Название год», абзацы, метаданные, скриншоты. */
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import { t } from '../../i18n';
+import { localePath, type Lang } from '../../lib/lang';
+import type { Work } from '../../data/works';
+
+interface Props {
+  lang: Lang;
+  work: Work;
+}
+const { lang, work } = Astro.props;
+const detail = (field: string) => t(lang, `workDetail.${work.key}.${field}`);
+const title = t(lang, `works.items.${work.key}.title`);
+---
+<Base
+  lang={lang}
+  title={`${title} — Rostislav Egorov (craftzman)`}
+  description={t(lang, `works.items.${work.key}.description`)}
+  canonicalPath={localePath(`/works/${work.slug}`, lang)}
+  ogImage={work.shots[0]?.src.src ?? work.thumbnail.src}
+>
+  <div class="crumbs">
+    <a href={localePath('/works', lang)}>{t(lang, 'common.nav.works')}</a>
+    <span class="crumbs__sep" aria-hidden="true">›</span>
+    <h1 class="crumbs__title">{detail('title')}</h1>
+    <span class="badge">{work.years}</span>
+  </div>
+
+  {work.paragraphs.map((key) => <p class="prose-p">{detail(key)}</p>)}
+
+  <ul class="meta-list">
+    {work.meta.map((row) => (
+      <li>
+        <span class="badge badge--accent">{t(lang, `common.meta.${row.label}`)}</span>
+        {'indie' in row ? (
+          <span>{t(lang, 'common.meta.indiePersonal')}</span>
+        ) : 'href' in row ? (
+          <a href={row.href} rel="noopener" target="_blank">{detail(row.field)} ↗</a>
+        ) : (
+          <span>{detail(row.field)}</span>
+        )}
+      </li>
+    ))}
+  </ul>
+
+  {work.shots.map((shot) => (
+    <Image class="shot" src={shot.src} alt={detail(shot.alt)} widths={[736, 1472]} sizes="(max-width: 768px) 100vw, 736px" />
+  ))}
+</Base>

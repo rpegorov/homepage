@@ -1,0 +1,99 @@
+---
+/* Base — единственный <head> и рамка страницы craftzman.ru.
+   Props:
+     lang           'en' | 'ru' — должен совпадать с canonicalPath (русские страницы под /ru).
+     title          <title>, он же og:title.
+     description    meta description, он же og:description.
+     canonicalPath  собственный путь страницы без слэша в конце: '/works/keel', '/ru'.
+     alternates     страница на каждом языке, где она есть; по умолчанию обе версии.
+                    hreflang пишется только для перечисленных, x-default — английская
+                    (или сама страница, если английской нет). Неполный — только у
+                    постов блога, вышедших на одном языке.
+     noindex        robots noindex (404).
+     ogImage        путь или абсолютный адрес картинки для превью ссылки.
+     ogType         'website' | 'article'.
+   Слоты: "head" — дополнительное содержимое <head> (JSON-LD); по умолчанию — <main>. */
+import '../styles/tokens.css';
+import '../styles/site.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { langOfPath, localePath, localePaths, type Lang } from '../lib/lang';
+import { t } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  canonicalPath: string;
+  alternates?: Partial<Record<Lang, string>>;
+  noindex?: boolean;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+}
+
+const {
+  lang,
+  title,
+  description,
+  canonicalPath,
+  alternates = localePaths(canonicalPath),
+  noindex = false,
+  ogImage = '/lostProgrammer.png',
+  ogType = 'website',
+} = Astro.props;
+
+if (!canonicalPath.startsWith('/') || (canonicalPath !== '/' && canonicalPath.endsWith('/'))) {
+  throw new Error(`Base: canonicalPath must start with "/" and have no trailing slash, got "${canonicalPath}"`);
+}
+if (langOfPath(canonicalPath) !== lang) {
+  throw new Error(`Base: lang "${lang}" does not match canonicalPath "${canonicalPath}"`);
+}
+
+const site = Astro.site ?? new URL('https://www.craftzman.ru');
+const absolute = (path: string) => (path === '/' ? `${site.origin}/` : new URL(path, site).href);
+const hreflangs = (Object.entries(alternates) as Array<[Lang, string]>).filter(([, path]) => Boolean(path));
+const xDefault = alternates.en ?? canonicalPath;
+---
+<!doctype html>
+<html lang={lang} data-theme="paper">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="craftzman (Rostislav Egorov)" />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
+    {!noindex && <link rel="canonical" href={absolute(canonicalPath)} />}
+    {!noindex && hreflangs.map(([code, path]) => <link rel="alternate" hreflang={code} href={absolute(path)} />)}
+    {!noindex && <link rel="alternate" hreflang="x-default" href={absolute(xDefault)} />}
+    <link rel="alternate" type="application/rss+xml" title={`craftzman — ${t(lang, 'blog.title')}`} href={localePath('/rss.xml', lang)} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={t(lang, 'seo.siteName')} />
+    <meta property="og:locale" content={t(lang, 'seo.locale')} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={absolute(canonicalPath)} />
+    <meta property="og:image" content={new URL(ogImage, site).href} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#fbf7f0" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1b1916" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-180.png" />
+    <link rel="preload" href="/fonts/GolosText.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Lora.woff2" as="font" type="font/woff2" crossorigin />
+    <script is:inline src="/theme-init.js"></script>
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip" href="#main">{lang === 'ru' ? 'К содержанию' : 'Skip to content'}</a>
+    <Header lang={lang} path={canonicalPath} alternates={alternates} />
+    <main id="main" class="page" tabindex="-1">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    <script>
+      import '../scripts/site.ts';
+    </script>
+  </body>
+</html>

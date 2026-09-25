@@ -3,7 +3,7 @@
 // "not built yet" instead of a resolver stack trace.
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { parseFrontmatter } from '../../scripts/lib/frontmatter.mjs';
+import { parseFrontmatter } from '@astrojs/internal-helpers/frontmatter';
 import { ROOT } from './dist.mjs';
 
 export function contractFile(rel, task) {
@@ -24,8 +24,13 @@ export function contractFn(mod, names, rel, task) {
   return mod[name];
 }
 
-/** Front matter parsed exactly as the site parses it (scripts/lib/posts.mjs). */
+/**
+ * Front matter parsed exactly as Astro parses it (js-yaml via
+ * @astrojs/internal-helpers), so an unquoted date becomes a Date here just as
+ * it does in the build.
+ */
 export function parseMarkdown(text) {
   const src = text.startsWith('---') ? text : `---\n${text.trimEnd()}\n---\n`;
-  return parseFrontmatter(src);
+  const { frontmatter, content } = parseFrontmatter(src);
+  return { data: frontmatter, body: content };
 }
