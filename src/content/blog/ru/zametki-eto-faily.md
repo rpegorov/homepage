@@ -5,7 +5,7 @@ lang: "ru"
 slug: "zametki-eto-faily"
 date: "2026-09-25"
 updated: "2026-09-25"
-draftaId: "C811A0D3-D3EB-489A-907D-FC7B7B11AE25"
+draftaId: "3F72365D-F481-407A-8CD3-746A1BAA689E"
 tags: []
 ---
 

@@ -1,0 +1,14 @@
+{
+  "contract": 1,
+  "tagNamespace": "craftzman",
+  "siteUrl": "https://www.craftzman.ru",
+  "notifyTitle": "craftzman.ru",
+  "translate": { "ru": "en" },
+  "sections": {
+    "blog": {
+      "kind": "blog",
+      "dirs": { "en": "src/content/blog/en", "ru": "src/content/blog/ru" },
+      "urls": { "en": "/blog/{slug}", "ru": "/ru/blog/{slug}" }
+    }
+  }
+}

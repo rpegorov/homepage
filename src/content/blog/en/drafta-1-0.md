@@ -5,7 +5,7 @@ lang: "en"
 slug: "drafta-1-0"
 date: "2026-09-25"
 updated: "2026-09-25"
-draftaId: "A70E80A2-EC74-415C-8581-71FC11EF9682"
+draftaId: "ED105007-1785-43BC-B6A3-776BABC5E2D8"
 tags: []
 machineTranslated: true
 translation:

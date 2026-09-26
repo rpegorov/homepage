@@ -5,7 +5,7 @@ lang: "en"
 slug: "istoriya-reviziy-i-bekapy"
 date: "2026-09-29"
 updated: "2026-09-25"
-draftaId: "1F8800D5-99D5-40CE-802C-32A0AAAA3116"
+draftaId: "8CD5CC41-14ED-4DE7-A57A-FF158D686335"
 tags: []
 machineTranslated: true
 translation:

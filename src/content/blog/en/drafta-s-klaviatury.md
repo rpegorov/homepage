@@ -5,7 +5,7 @@ lang: "en"
 slug: "drafta-s-klaviatury"
 date: "2026-09-28"
 updated: "2026-09-25"
-draftaId: "27CE496F-657C-4D98-A177-1175E4088737"
+draftaId: "713B8EA5-C975-4315-8FB3-785C9EADDD94"
 tags: []
 machineTranslated: true
 translation:

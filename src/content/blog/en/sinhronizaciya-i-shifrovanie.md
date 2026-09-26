@@ -5,7 +5,7 @@ lang: "en"
 slug: "sinhronizaciya-i-shifrovanie"
 date: "2026-09-30"
 updated: "2026-09-25"
-draftaId: "81EEA553-7918-4D83-A07E-3F08F550CB95"
+draftaId: "CBD52079-3C8C-41E0-9B05-6F89343C250A"
 tags: []
 machineTranslated: true
 translation:
