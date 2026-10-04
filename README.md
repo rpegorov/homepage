@@ -32,7 +32,7 @@ src/
   components/     страницы и части (home/, works/, blog/)
   layouts/Base.astro   <head>, шапка, подвал
   content/blog/   посты (пишет publisher из Drafta)
-  content/works/  проекты (пишет publisher из Drafta); API — lib/works.ts
+  content/works/  projects (written by publisher from Drafta); API: lib/works.ts
   i18n/           словари en/ru
   assets/         картинки, которые Astro оптимизирует
 scripts/          экспортёр и publisher Drafta → блог

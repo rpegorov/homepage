@@ -1,9 +1,6 @@
-// drafta-publisher freezes its front matter render against contract/samples/v2/*.md;
-// this site freezes its own zod schemas against copies of those same samples
-// (tests/fixtures/publisher-contract/v2/). Neither repository depends on the
-// other at test time — a version bump shows up here only when someone updates
-// the copied fixtures. craftzman.ru has no docs section, so only the blog and
-// works samples apply here.
+// This site freezes its zod schemas against copies of the publisher's contract samples
+// (tests/fixtures/publisher-contract/v2/); a version bump shows up here only when
+// the copied fixtures are updated. craftzman.ru has no docs section.
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
