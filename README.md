@@ -20,16 +20,6 @@ npm run check     # типы
 npm test          # публикация из Drafta
 ```
 
-## TLS certificate (nginx / Docker)
-
-The nginx setup in `docker-compose.yml` and `docker-compose.nginx.yml` mounts
-`.certs/craftzman.ru.crt` (full chain) and `.certs/craftzman.ru.key` (private key)
-into the container. Both files are git-ignored and must be placed on the server
-by hand, outside version control (for example with `scp`, mode `600` for the key).
-Issue the certificate with the key generated on the server, or via the certbot
-service in `docker-compose.nginx.yml`; do not commit either file. `.env` is local
-as well and is not tracked.
-
 ## Блог
 
 Посты публикуются из Drafta по тегу `#projects/craftzman/blog` — см. [docs/blog.md](docs/blog.md).
