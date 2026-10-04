@@ -116,6 +116,8 @@ describe('drafta-publisher contract v2 — rejections', () => {
     ['order', 1.5],
     ['website', 'example.com'],
     ['more', 'not a url'],
+    ['website', 'javascript:alert(1)'],
+    ['more', 'ftp://example.com/file'],
   ])('works %s: %j is rejected', async (key, value) => {
     const schema = await worksSchema();
     expect(schema.safeParse({ ...dataOf('works-ru.md'), [key]: value }).success).toBe(false);
