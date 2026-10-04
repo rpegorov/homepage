@@ -4,6 +4,7 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { parseFrontmatter } from '@astrojs/internal-helpers/frontmatter';
+import { z } from 'astro/zod';
 import { ROOT } from './dist.mjs';
 
 export function contractFile(rel, task) {
@@ -33,4 +34,15 @@ export function parseMarkdown(text) {
   const src = text.startsWith('---') ? text : `---\n${text.trimEnd()}\n---\n`;
   const { frontmatter, content } = parseFrontmatter(src);
   return { data: frontmatter, body: content };
+}
+
+/**
+ * The zod schema of a site collection as the build sees it. `image()` becomes a
+ * plain string because the real helper only exists inside the Astro build.
+ * The caller must mock `astro:content` first (see publisher-contract.spec.mjs).
+ */
+export async function collectionSchema(name) {
+  const mod = await importContract('src/content.config.ts', 'S1');
+  const { schema } = mod.collections[name];
+  return typeof schema === 'function' ? schema({ image: () => z.string() }) : schema;
 }

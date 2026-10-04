@@ -1,53 +1,99 @@
-// PLAN — site-publisher §4.3: drafta-publisher freezes its front matter render
-// against contract/samples/v1/*.md; this site freezes its own zod schema
-// against copies of those same samples (tests/fixtures/publisher-contract/v1/).
-// Neither repository depends on the other at test time — a version bump shows
-// up here only when someone updates the copied fixtures. craftzman.ru has no
-// docs section, so only the blog samples apply here.
+// drafta-publisher freezes its front matter render against contract/samples/v2/*.md;
+// this site freezes its own zod schemas against copies of those same samples
+// (tests/fixtures/publisher-contract/v2/). Neither repository depends on the
+// other at test time — a version bump shows up here only when someone updates
+// the copied fixtures. craftzman.ru has no docs section, so only the blog and
+// works samples apply here.
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
-import { z } from 'astro/zod';
-import { importContract, parseMarkdown } from './helpers/contract.mjs';
+import { collectionSchema, parseMarkdown } from './helpers/contract.mjs';
 import { ROOT } from './helpers/dist.mjs';
 
 // content.config.ts imports the virtual `astro:content`; outside the Astro build
 // defineCollection is the identity, which is all the schemas need.
 vi.mock('astro:content', () => ({ defineCollection: (c) => c }));
 
-const FIXTURES = join(ROOT, 'tests/fixtures/publisher-contract/v1');
+const CONTRACTS = join(ROOT, 'tests/fixtures/publisher-contract');
+const SITE_CONFIG = join(ROOT, 'publish.config.json');
 
-function readFixture(name) {
-  return readFileSync(join(FIXTURES, name), 'utf8');
+function readFixture(name, version = 'v2') {
+  return readFileSync(join(CONTRACTS, version, name), 'utf8');
 }
 
 function dataOf(fixture) {
   return parseMarkdown(readFixture(fixture)).data;
 }
 
-async function blogSchema() {
-  const mod = await importContract('src/content.config.ts', 'S2');
-  const { blog } = mod.collections;
-  const { schema } = blog;
-  return typeof schema === 'function' ? schema({ image: () => z.string() }) : schema;
-}
+const blogSchema = () => collectionSchema('blog');
+const worksSchema = () => collectionSchema('works');
 
-describe('drafta-publisher contract v1 — craftzman.ru accepts the frozen samples', () => {
+describe('drafta-publisher contract v2 — the site config', () => {
+  it('declares contract 2 with blog and works sections laid out for the collections', () => {
+    const config = JSON.parse(readFileSync(SITE_CONFIG, 'utf8'));
+    expect(config.contract).toBe(2);
+    expect(config.sections.blog.kind).toBe('blog');
+    expect(config.sections.works).toEqual({
+      kind: 'works',
+      dirs: { en: 'src/content/works/en', ru: 'src/content/works/ru' },
+      urls: { en: '/works/{slug}', ru: '/ru/works/{slug}' },
+    });
+  });
+
+  it('keeps the blog samples byte-identical to v1', () => {
+    for (const name of ['blog-ru.md', 'blog-en-machine.md']) {
+      expect(readFixture(name, 'v2')).toBe(readFixture(name, 'v1'));
+    }
+  });
+});
+
+describe('drafta-publisher contract v2 — craftzman.ru accepts the frozen samples', () => {
   it('blog-ru.md (a Russian original) passes the blog schema', async () => {
     const result = (await blogSchema()).safeParse(dataOf('blog-ru.md'));
     expect(result.error?.issues ?? []).toEqual([]);
-    expect(result.data).toMatchObject({ lang: 'ru', slug: 'privet-mir', machineTranslated: false });
+    expect(result.data).toMatchObject({
+      lang: 'ru',
+      slug: 'privet-mir',
+      machineTranslated: false,
+    });
   });
 
   it('blog-en-machine.md (a machine translation) passes the blog schema', async () => {
     const result = (await blogSchema()).safeParse(dataOf('blog-en-machine.md'));
     expect(result.error?.issues ?? []).toEqual([]);
     expect(result.data.machineTranslated).toBe(true);
-    expect(result.data.translation).toMatchObject({ sourceLang: 'ru', provider: 'deepseek' });
+    expect(result.data.translation).toMatchObject({
+      sourceLang: 'ru',
+      provider: 'deepseek',
+    });
+  });
+
+  it('works-ru.md (a Russian original) passes the works schema', async () => {
+    const result = (await worksSchema()).safeParse(dataOf('works-ru.md'));
+    expect(result.error?.issues ?? []).toEqual([]);
+    expect(result.data).toMatchObject({
+      lang: 'ru',
+      slug: 'privet-proekt',
+      group: 'own',
+      order: 10,
+      years: '2026–',
+      website: 'https://example.com',
+      machineTranslated: false,
+    });
+  });
+
+  it('works-en-machine.md (a machine translation) passes the works schema', async () => {
+    const result = (await worksSchema()).safeParse(dataOf('works-en-machine.md'));
+    expect(result.error?.issues ?? []).toEqual([]);
+    expect(result.data.machineTranslated).toBe(true);
+    expect(result.data.translation).toMatchObject({
+      sourceLang: 'ru',
+      provider: 'deepseek',
+    });
   });
 });
 
-describe('drafta-publisher contract v1 — rejections', () => {
+describe('drafta-publisher contract v2 — rejections', () => {
   it('blog front matter without draftaId does not pass the schema', async () => {
     const schema = await blogSchema();
     const { draftaId, ...withoutId } = dataOf('blog-ru.md');
@@ -59,5 +105,22 @@ describe('drafta-publisher contract v1 — rejections', () => {
     const schema = await blogSchema();
     const data = dataOf('blog-ru.md');
     expect(schema.safeParse({ ...data, lang: 'de' }).success).toBe(false);
+  });
+
+  it.each(['group', 'order', 'years', 'thumbnail', 'draftaId'])('works front matter without %s is rejected', async (key) => {
+    const schema = await worksSchema();
+    const { [key]: removed, ...rest } = dataOf('works-ru.md');
+    expect(removed).toBeDefined();
+    expect(schema.safeParse(rest).success).toBe(false);
+  });
+
+  it.each([
+    ['group', 'client'],
+    ['order', 1.5],
+    ['website', 'example.com'],
+    ['more', 'not a url'],
+  ])('works %s: %j is rejected', async (key, value) => {
+    const schema = await worksSchema();
+    expect(schema.safeParse({ ...dataOf('works-ru.md'), [key]: value }).success).toBe(false);
   });
 });

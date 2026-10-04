@@ -43,4 +43,35 @@ const blog = defineCollection({
     }),
 });
 
-export const collections = { blog };
+// Written by drafta-publisher (kind works) as src/content/works/<lang>/<slug>.md
+// with attachments in <slug>/; tests/publisher-contract.spec.mjs freezes the
+// schema against the publisher's samples.
+const works = defineCollection({
+  // The id is the file path for the same reason as in blog.
+  loader: glob({
+    pattern: '**/*.md',
+    base: './src/content/works',
+    generateId: ({ entry }) => entry.replace(/\.md$/, ''),
+  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      lang: z.enum(['en', 'ru']),
+      slug: z.string(),
+      updated: z.string().regex(DATE_ONLY, 'updated must be YYYY-MM-DD'),
+      draftaId: z.string(),
+      group: z.enum(['work', 'own']),
+      order: z.number().int(),
+      years: z.string(),
+      stack: z.string().optional(),
+      platform: z.string().optional(),
+      website: z.url().optional(),
+      more: z.url().optional(),
+      thumbnail: image(),
+      machineTranslated: z.boolean().default(false),
+      translation: translation.optional(),
+    }),
+});
+
+export const collections = { blog, works };

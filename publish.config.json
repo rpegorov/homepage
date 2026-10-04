@@ -1,5 +1,5 @@
 {
-  "contract": 1,
+  "contract": 2,
   "tagNamespace": "craftzman",
   "siteUrl": "https://www.craftzman.ru",
   "notifyTitle": "craftzman.ru",
@@ -9,6 +9,11 @@
       "kind": "blog",
       "dirs": { "en": "src/content/blog/en", "ru": "src/content/blog/ru" },
       "urls": { "en": "/blog/{slug}", "ru": "/ru/blog/{slug}" }
+    },
+    "works": {
+      "kind": "works",
+      "dirs": { "en": "src/content/works/en", "ru": "src/content/works/ru" },
+      "urls": { "en": "/works/{slug}", "ru": "/ru/works/{slug}" }
     }
   }
 }
