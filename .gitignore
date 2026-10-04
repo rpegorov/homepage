@@ -3,3 +3,7 @@ dist/
 .astro/
 node_modules/
 .DS_Store
+
+# TLS certificate/key and local environment; never commit.
+.certs/
+.env
