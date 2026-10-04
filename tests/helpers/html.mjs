@@ -43,10 +43,11 @@ export function textOf(fragment) {
     .trim();
 }
 
-/** `{ href, text }` of every anchor in `fragment`, in document order. */
+/** `{ href, text, html }` of every anchor in `fragment`, in document order. */
 export function linksOf(fragment) {
   return [...fragment.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)].map(([, source, inner]) => ({
     href: /href\s*=\s*"([^"]*)"/.exec(source)?.[1],
     text: textOf(inner),
+    html: inner,
   }));
 }

@@ -140,6 +140,24 @@ describe('works build — the list page', () => {
   });
 });
 
+describe('works build — the cards', () => {
+  it.each(['en', 'ru'])('shows each %s project with its thumbnail and card text', (lang) => {
+    const html = readFileSync(join(built.dist, lang === 'ru' ? 'ru/works.html' : 'works.html'), 'utf8');
+    const cards = linksOf(mainOf(html)).filter((link) => /^(?:\/ru)?\/works\/[a-z0-9-]+$/.test(link.href ?? ''));
+    const expected = PAGES.filter((page) => page.lang === lang);
+    expect(cards.map((card) => card.href)).toEqual(expect.arrayContaining(expected.map((page) => page.path)));
+    for (const page of expected) {
+      const card = cards.find((link) => link.href === page.path);
+      const thumb = tagsOf(card.html, 'img').find((img) =>
+        new URL(img.src, SITE).pathname.startsWith(`/_astro/${thumbnailName(page.slug).replace('.png', '')}.`),
+      );
+      expect(thumb, `${page.path} has no thumbnail`).toBeDefined();
+      expect(existsSync(distFileOf(thumb.src))).toBe(true);
+      expect(card.text).toContain(page.description);
+    }
+  });
+});
+
 describe('works build — a project page', () => {
   const metaOf = (page) => {
     const main = mainOf(readPage(page.path));
