@@ -37,6 +37,19 @@ const indie: MetaRow = { label: 'type', indie: true };
 
 export const WORKS: Work[] = [
   {
+    slug: 'lte-center',
+    key: 'lteCenter',
+    years: '2026',
+    paragraphs: ['p1', 'p2', 'p3'],
+    meta: [stack, platform, { label: 'website', href: 'https://lte-center.ru', field: 'websiteText' }],
+    thumbnail: image('lte_center_title.png'),
+    shots: [
+      { src: image('lte_center_home.png'), alt: 'alt1' },
+      { src: image('lte_center_admin.png'), alt: 'alt2' },
+    ],
+    group: 1,
+  },
+  {
     slug: 'atomMind',
     key: 'atomMind',
     years: '2024–',

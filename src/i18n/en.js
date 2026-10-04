@@ -146,6 +146,11 @@ const en = {
   works: {
     heading: 'Works',
     items: {
+      lteCenter: {
+        title: 'LTE.Center',
+        description:
+          'A website and an AI CMS for a mobile proxy service. It replaced two Tilda sites (~750 URLs) without losing search traffic; the admin builds pages from blocks and drafts articles from a keyword pool on a schedule.'
+      },
       atomMind: {
         title: 'AtomMind',
         description:
@@ -208,6 +213,18 @@ const en = {
   },
 
   workDetail: {
+    lteCenter: {
+      title: 'A website and an AI CMS for a mobile proxy service.',
+      p1: 'Role in the project: architect and developer. The job: replace two Tilda sites of one business, about 750 URLs with 41 slugs shared by both domains, with a single managed site and keep the search traffic. URLs stay flat, as they were; a map of 682 redirects is checked by an automated test, and the sitemap lists 702 URLs.',
+      p2: 'The site and the admin are one Next.js 16 and Payload CMS 3 application. Pages are assembled from a block library, tariffs and cities live in one place, and an SEO linter blocks publishing on a slug conflict, a second h1 or an image without alt text. It went live on 4 October 2026.',
+      p3: 'The admin is positioned as an AI CMS. In bulk article generation an editor loads a pool of up to 1,000 keywords, sets the publishing interval and the model, and the system writes each article, then its meta tags in a separate request, and optionally a cover. The default result is a draft for review; scheduled auto-publishing is a separate checkbox. Rules and prompts are applied in an order the editor sets, and the cost of every model call is logged.',
+      platform: 'Web: public site and admin',
+      stack:
+        'Next.js 16, Payload CMS 3, TypeScript, PostgreSQL, Redis, Docker, Caddy',
+      websiteText: 'lte-center.ru',
+      alt1: 'LTE.Center — home page',
+      alt2: 'LTE.Center — admin, bulk article generation'
+    },
     atomMind: {
       title: 'AtomMind',
       p1: 'The AtomMind industrial digitalization platform offers optimal parameters and operating modes of equipment to reduce the proportion of finished products that do not meet established standards, as well as visualizes the production process and notifies users of parameter deviations.',
