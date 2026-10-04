@@ -1,10 +1,11 @@
 ---
 import WorkPage from '../../components/works/WorkPage.astro';
-import { WORKS, type Work } from '../../data/works';
+import { twinOf, worksOf, type Work } from '../../lib/works';
 
-export function getStaticPaths() {
-  return WORKS.map((work) => ({ params: { slug: work.slug }, props: { work } }));
+export async function getStaticPaths() {
+  const works = await worksOf('en');
+  return Promise.all(works.map(async (work) => ({ params: { slug: work.data.slug }, props: { work, twin: await twinOf(work) } })));
 }
-const { work } = Astro.props as { work: Work };
+const { work, twin } = Astro.props as { work: Work; twin?: Work };
 ---
-<WorkPage lang="en" work={work} />
+<WorkPage work={work} twin={twin} />

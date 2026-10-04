@@ -1,16 +1,17 @@
 ---
-/* Список проектов: сначала работа по найму, под чертой — свои продукты. */
+/* Project list: employer work first, own products below the divider. */
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import { t } from '../../i18n';
 import { localePath, type Lang } from '../../lib/lang';
-import { WORKS } from '../../data/works';
+import { groupedWorksOf, workPath, WORK_GROUPS } from '../../lib/works';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-const groups = [1, 2].map((group) => WORKS.filter((work) => work.group === group));
+const grouped = await groupedWorksOf(lang);
+const groups = WORK_GROUPS.map((group) => grouped[group]).filter((works) => works.length > 0);
 ---
 <Base
   lang={lang}
@@ -24,10 +25,10 @@ const groups = [1, 2].map((group) => WORKS.filter((work) => work.group === group
       {i > 0 && <hr class="divider" />}
       <div class="grid">
         {works.map((work) => (
-          <a class="card" href={localePath(`/works/${work.slug}`, lang)}>
-            <Image class="card__thumb" src={work.thumbnail} alt="" widths={[360, 720]} sizes="(max-width: 640px) 100vw, 336px" />
-            <span class="card__title">{t(lang, `works.items.${work.key}.title`)}</span>
-            <span class="card__text">{t(lang, `works.items.${work.key}.description`)}</span>
+          <a class="card" href={workPath(lang, work.data.slug)}>
+            <Image class="card__thumb" src={work.data.thumbnail} alt="" widths={[360, 720]} sizes="(max-width: 640px) 100vw, 336px" />
+            <span class="card__title">{work.data.title}</span>
+            <span class="card__text">{work.data.description}</span>
           </a>
         ))}
       </div>

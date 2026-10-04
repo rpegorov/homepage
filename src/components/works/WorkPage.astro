@@ -1,51 +1,71 @@
 ---
-/* Страница проекта: «Проекты › Название год», абзацы, метаданные, скриншоты. */
-import { Image } from 'astro:assets';
+/* Project page: "Works › Name" with the years badge, the metadata rows, then the note body. */
+import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { t } from '../../i18n';
-import { localePath, type Lang } from '../../lib/lang';
-import type { Work } from '../../data/works';
+import { localePath } from '../../lib/lang';
+import { alternatesOf, isIndie, linkOf, workPath, type Work } from '../../lib/works';
 
 interface Props {
-  lang: Lang;
   work: Work;
+  twin?: Work | undefined;
 }
-const { lang, work } = Astro.props;
-const detail = (field: string) => t(lang, `workDetail.${work.key}.${field}`);
-const title = t(lang, `works.items.${work.key}.title`);
+const { work, twin } = Astro.props;
+const { lang, slug, title, description, years, stack, platform, thumbnail, machineTranslated } = work.data;
+const { Content } = await render(work);
+const link = linkOf(work);
+const linkLabelKey = { website: 'website', more: 'moreInfo' } as const;
 ---
 <Base
   lang={lang}
   title={`${title} — Rostislav Egorov (craftzman)`}
-  description={t(lang, `works.items.${work.key}.description`)}
-  canonicalPath={localePath(`/works/${work.slug}`, lang)}
-  ogImage={work.shots[0]?.src.src ?? work.thumbnail.src}
+  description={description}
+  canonicalPath={workPath(lang, slug)}
+  alternates={alternatesOf(work, twin)}
+  ogImage={thumbnail.src}
 >
   <div class="crumbs">
     <a href={localePath('/works', lang)}>{t(lang, 'common.nav.works')}</a>
     <span class="crumbs__sep" aria-hidden="true">›</span>
-    <h1 class="crumbs__title">{detail('title')}</h1>
-    <span class="badge">{work.years}</span>
+    <h1 class="crumbs__title">{title}</h1>
+    <span class="badge">{years}</span>
   </div>
 
-  {work.paragraphs.map((key) => <p class="prose-p">{detail(key)}</p>)}
-
   <ul class="meta-list">
-    {work.meta.map((row) => (
+    {platform && (
       <li>
-        <span class="badge badge--accent">{t(lang, `common.meta.${row.label}`)}</span>
-        {'indie' in row ? (
-          <span>{t(lang, 'common.meta.indiePersonal')}</span>
-        ) : 'href' in row ? (
-          <a href={row.href} rel="noopener" target="_blank">{detail(row.field)} ↗</a>
-        ) : (
-          <span>{detail(row.field)}</span>
-        )}
+        <span class="badge badge--accent">{t(lang, 'common.meta.platform')}</span>
+        <span>{platform}</span>
       </li>
-    ))}
+    )}
+    {stack && (
+      <li>
+        <span class="badge badge--accent">{t(lang, 'common.meta.stack')}</span>
+        <span>{stack}</span>
+      </li>
+    )}
+    {isIndie(work) && (
+      <li>
+        <span class="badge badge--accent">{t(lang, 'common.meta.type')}</span>
+        <span>{t(lang, 'common.meta.indiePersonal')}</span>
+      </li>
+    )}
+    {link && (
+      <li>
+        <span class="badge badge--accent">{t(lang, `common.meta.${linkLabelKey[link.kind]}`)}</span>
+        <a href={link.href} rel="noopener" target="_blank">{link.label} ↗</a>
+      </li>
+    )}
   </ul>
 
-  {work.shots.map((shot) => (
-    <Image class="shot" src={shot.src} alt={detail(shot.alt)} widths={[736, 1472]} sizes="(max-width: 768px) 100vw, 736px" />
-  ))}
+  {machineTranslated && (
+    <p class="notice" role="note">
+      {t(lang, 'blog.machineTranslated')}
+      {twin && <> <a href={workPath(twin.data.lang, twin.data.slug)} hreflang={twin.data.lang}>{t(lang, 'blog.readOriginal')}</a></>}
+    </p>
+  )}
+
+  <div class="prose">
+    <Content />
+  </div>
 </Base>
