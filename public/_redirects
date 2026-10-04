@@ -1,2 +1,10 @@
 # Старый адрес sitemap (прежний сайт на Next.js) — на индекс, который пишет @astrojs/sitemap.
 /sitemap.xml /sitemap-index.xml 301
+
+# Legacy camelCase project addresses; slugs are lowercase with hyphens.
+/works/atomMind /works/atom-mind 301
+/works/flameApp /works/flame-app 301
+/works/tezishApp /works/tezish-app 301
+/ru/works/atomMind /ru/works/atom-mind 301
+/ru/works/flameApp /ru/works/flame-app 301
+/ru/works/tezishApp /ru/works/tezish-app 301
